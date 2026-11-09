@@ -73,14 +73,14 @@ SEARCH_INTENT_EMBEDDING_MODEL=C:/models/paraphrase-multilingual-MiniLM-L12-v2
 | `assets/东方财富热点题材_2026-10-22.xlsx` | 热点题材名称、释义、代码和详情页链接 |
 | `assets/热点题材_需屏蔽嵌套跳转_2026-10-22.xlsx` | 热点嵌套跳转屏蔽清单 |
 | `assets/category_quadrants_82.json` | 分类主题对应的 A/B/C/D 象限 |
-| `分类器/topic_catalog.json` | 原生 82 个主题的一级／二级名称及代表搜索词 |
+| `分类器/topic_catalog.json` | 原生 82 个主题的一级/二级名称及代表搜索词 |
 | `分类器/prototypes_82.npz`、`分类器/model_metadata.json` | 主题中心向量及分类参数 |
 
 专题和热点清单可增加“页面主要内容”列。单条输入也可通过 `page_contents` 提供目标页面内容，键为页面 URL，值为内容字符串。
 
 ## 本地运行
 
-### Excel／CSV 跑批
+### Excel/CSV 跑批
 
 输入表需包含“资讯标题”和“资讯正文”列；Excel 中的“资讯全文”也可作为正文列。按原表顺序选取资讯，标题和正文需非空。
 
@@ -100,7 +100,7 @@ SEARCH_INTENT_EMBEDDING_MODEL=C:/models/paraphrase-multilingual-MiniLM-L12-v2
 .\.venv\Scripts\python.exe scripts\batch_final_summary.py assets\要闻资讯拉取_2026-10-27.xlsx --limit 10 --workers 2 --output-dir outputs\first_10
 ```
 
-该入口接受 Excel 输入，每条最多尝试 3 次，支持 `--resume`。输出目录包含 `final_summaries.json`（资讯序号、ID、标题、运行状态和每条最终汇总）及 `run_metadata.json`（运行参数与成功／失败条数）。
+该入口接受 Excel 输入，每条最多尝试 3 次，支持 `--resume`。输出目录包含 `final_summaries.json`（资讯序号、ID、标题、运行状态和每条最终汇总）及 `run_metadata.json`（运行参数与成功/失败条数）。
 
 ### 单条资讯
 
@@ -141,12 +141,12 @@ Invoke-RestMethod http://127.0.0.1:5000/run -Method Post -ContentType 'applicati
 
 各阶段按顺序执行，专题和热点命中与否都会继续进入分类主链路。
 
-1. **专题处理**：本地词面召回最多 5 个候选，过滤低于 0.05 的召回分数；LLM 判断适配，规则检查嵌套跳转屏蔽。有效命中时生成 3 个不同的推荐词及 6 字／9 字展示版。
+1. **专题处理**：本地词面召回最多 5 个候选，过滤低于 0.05 的召回分数；LLM 判断适配，规则检查嵌套跳转屏蔽。有效命中时生成 3 个不同的推荐词及 6 字/9 字展示版。
 2. **热点题材处理**：专题处理结束后，执行热点召回、LLM 适配判断和屏蔽检查；有效命中时生成 3 个不同的推荐词及展示版。
 3. **优先方向判断**：只有专题命中时选择 `topic`，只有热点命中时选择 `hot_theme`，均未命中时为 `none`；双命中时由 LLM 选择专题或热点。
 4. **分类与校验**：MiniLM 在 82 个主题中给出预测。最高相似度达到门槛时，LLM 在 Top-5 内校验；低于门槛或模型不可用时，LLM 先从完整目录提议分类，再独立审核提议和备选。无提议时审核完整目录，确认没有适合类目则进入 AI 生词。
 5. **按象限生词**：接受的类目按固定映射进入 A/B/C/D；B/D 先尝试拣选相邻 A 类主题作为内容参照，参照的模型相似度至少为 0.5，无有效参照时仍按原象限生词。
-6. **最终汇总**：返回 `final_summary`，包含专题、热点、分类生词三部分及专题／热点的优先方向。
+6. **最终汇总**：返回 `final_summary`，包含专题、热点、分类生词三部分及专题/热点的优先方向。
 
 正常分类路径中，原始 Top-1 和 Top-2 都达到门槛、差距不超过 `CATEGORY_DUAL_MAX_GAP`，且 LLM 确认两类各有正文依据时，允许双归类。两组按各自象限独立生词，主分类结果在前。
 
@@ -160,11 +160,11 @@ Invoke-RestMethod http://127.0.0.1:5000/run -Method Post -ContentType 'applicati
 
 ### 生词依据与延伸要求
 
-专题／热点生词以跳转目标内容为重点：按 URL 传入的 `page_contents` 优先，其次为清单页面主要内容，再使用专题导语／热点释义。原资讯提供阅读起点和已知信息边界，推荐词指向原文之外且目标内容可以承接的延伸阅读。
+专题/热点生词以跳转目标内容为重点：按 URL 传入的 `page_contents` 优先，其次为清单页面主要内容，再使用专题导语/热点释义。原资讯提供阅读起点和已知信息边界，推荐词指向原文之外且目标内容可以承接的延伸阅读。
 
 分类和 AI 生词的推荐词及对应 query 必须体现原文尚未回答的需求，例如机制、比较、应用条件或验证方法；推荐词本身就要有延伸意图，避免摘词、缩写标题、同义复述或把已披露事实改成问句。延伸需与资讯有可解释的联系，不能编造事实或确定性预测。
 
-推荐词按优先级排列。专题／热点提供跳转链接和展示文案；分类结果在 `category_quadrant.generation_results` 中逐组保存，`ai_queries` 按同词同序提供 `{word, query}`。D 象限空结果同时使用 `recommended_words=[]`、`ai_queries=[]`，不因空词触发重试。
+推荐词按优先级排列。专题/热点提供跳转链接和展示文案；分类结果在 `category_quadrant.generation_results` 中逐组保存，`ai_queries` 按同词同序提供 `{word, query}`。D 象限空结果同时使用 `recommended_words=[]`、`ai_queries=[]`，不因空词触发重试。
 
 ## 项目目录
 
@@ -172,7 +172,7 @@ Invoke-RestMethod http://127.0.0.1:5000/run -Method Post -ContentType 'applicati
 config/       各 LLM 节点的提示词与模型参数
 assets/       业务清单、象限映射和资讯输入文件
 分类器/       分类目录、主题中心与模型元数据
-src/          主图、节点、公共工具及单条／HTTP 入口
+src/          主图、节点、公共工具及单条/HTTP 入口
 scripts/      CSV 与 JSON 跑批入口
 tests/        工作流和输出校验测试
 outputs/      本地跑批结果
