@@ -1,0 +1,37 @@
+{
+  "model_name": "Search Intent Nearest-Centroid Classifier (Qwen reviewed, 82 topics)",
+  "created_from": "final_classification_split.json",
+  "training_source": "（清洗）0922-0928关键词搜索结果资讯和视频曝光点击.xlsx",
+  "training_sheet": "相关资讯 / 第一个工作表",
+  "training_source_rows": 6877,
+  "training_unique_terms": 2547,
+  "labeled_training_terms": 2432,
+  "unassigned_noise_terms_excluded_from_prototypes": 115,
+  "topic_count": 82,
+  "parent_topic_count": 29,
+  "embedding_model": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+  "embedding_dimension": 384,
+  "training_text": "搜索词 + 最多5条按点击UV排序的关联资讯标题；推理时可提供一条上下文标题",
+  "algorithm": "L2-normalized mean embedding prototype per Qwen-reviewed final topic; assign by highest cosine similarity",
+  "score_interpretation": "Cosine similarity is a ranking/confidence signal, not a probability.",
+  "manual_review_rule": "Recommend review when top cosine similarity is below the training 5th percentile, the top-two margin is below 0.02, or the predicted topic has fewer than 3 training terms.",
+  "low_similarity_review_cutoff": 0.6542854905128479,
+  "minimum_support_for_auto_review_clearance": 3,
+  "minimum_top_two_margin_for_auto_review_clearance": 0.02,
+  "source_clustering": {
+    "algorithm": "MiniBatchKMeans; L2-normalized semantic vectors; 70 initial topics; seed 42",
+    "raw_topic_count": 70,
+    "final_topic_count_after_qwen_split_and_reaggregation": 82,
+    "qwen_model": "qwen3.7-plus",
+    "qwen_split_model": "qwen3.7-plus",
+    "qwen_reaggregation_model": "qwen3.7-plus",
+    "cosine_silhouette_before_semantic_revision": 0.07490475475788116,
+    "noise_rate_before_semantic_revision": 0.04515115822536317
+  },
+  "training_label_similarity": {
+    "p05": 0.6542854905128479,
+    "median": 0.7857540845870972,
+    "p95": 0.9045892357826233,
+    "note": "In-sample fit to the supplied unsupervised/Qwen-reviewed labels; not an independent accuracy estimate."
+  }
+}

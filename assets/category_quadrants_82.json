@@ -1,0 +1,833 @@
+{
+  "source_workbook": "0922-0928搜索意图重聚类_Qwen拆分再聚合版.xlsx",
+  "source_sheet": "曝光点击四象限",
+  "topic_count": 82,
+  "regions_meta": {
+    "A": "高曝光·高点击",
+    "B": "高曝光·低点击",
+    "C": "低曝光·高点击",
+    "D": "低曝光·低点击"
+  },
+  "topics": {
+    "0": {
+      "leaf_topic_id": 0,
+      "leaf_topic_name": "贵州茅台及白酒投资",
+      "parent_topic_name": "个股动态",
+      "exposure_uv": 42910,
+      "click_uv": 2279,
+      "weighted_ctr": 0.05311116289909112,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "2": {
+      "leaf_topic_id": 2,
+      "leaf_topic_name": "个股龙虎榜数据",
+      "parent_topic_name": "资金动向",
+      "exposure_uv": 8450,
+      "click_uv": 129,
+      "weighted_ctr": 0.015266272189349112,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "3": {
+      "leaf_topic_id": 3,
+      "leaf_topic_name": "个股重大事件与公告",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 18976,
+      "click_uv": 969,
+      "weighted_ctr": 0.05106450252951096,
+      "quadrant_label": "高曝低点",
+      "region": "B"
+    },
+    "4": {
+      "leaf_topic_id": 4,
+      "leaf_topic_name": "市场行情与指数涨跌",
+      "parent_topic_name": "市场行情",
+      "exposure_uv": 37200,
+      "click_uv": 1534,
+      "weighted_ctr": 0.041236559139784947,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "5": {
+      "leaf_topic_id": 5,
+      "leaf_topic_name": "券商重组与中金公司复牌",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 99869,
+      "click_uv": 8078,
+      "weighted_ctr": 0.080885960608397,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "6": {
+      "leaf_topic_id": 6,
+      "leaf_topic_name": "游资席位与个股异动",
+      "parent_topic_name": "资金动向",
+      "exposure_uv": 2383,
+      "click_uv": 374,
+      "weighted_ctr": 0.15694502727654217,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "7": {
+      "leaf_topic_id": 7,
+      "leaf_topic_name": "农业板块与厄尔尼诺概念",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 30284,
+      "click_uv": 1437,
+      "weighted_ctr": 0.04745079910183595,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "8": {
+      "leaf_topic_id": 8,
+      "leaf_topic_name": "资金动向与大佬调仓",
+      "parent_topic_name": "资金动向",
+      "exposure_uv": 27974,
+      "click_uv": 2291,
+      "weighted_ctr": 0.08189747622792592,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "9": {
+      "leaf_topic_id": 9,
+      "leaf_topic_name": "美联储货币政策与美债",
+      "parent_topic_name": "宏观经济",
+      "exposure_uv": 36716,
+      "click_uv": 3418,
+      "weighted_ctr": 0.09309292951301884,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "10": {
+      "leaf_topic_id": 10,
+      "leaf_topic_name": "公司传闻回应与人事变动",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 24621,
+      "click_uv": 1423,
+      "weighted_ctr": 0.05779619024410056,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "11": {
+      "leaf_topic_id": 11,
+      "leaf_topic_name": "财报业绩披露",
+      "parent_topic_name": "公司财报",
+      "exposure_uv": 19545,
+      "click_uv": 627,
+      "weighted_ctr": 0.032079815809669995,
+      "quadrant_label": "高曝低点",
+      "region": "B"
+    },
+    "12": {
+      "leaf_topic_id": 12,
+      "leaf_topic_name": "方正科技个股动态",
+      "parent_topic_name": "个股动态",
+      "exposure_uv": 376,
+      "click_uv": 6,
+      "weighted_ctr": 0.015957446808510637,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "13": {
+      "leaf_topic_id": 13,
+      "leaf_topic_name": "卫星互联网与商业航天",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 18694,
+      "click_uv": 1003,
+      "weighted_ctr": 0.053653578688349204,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "14": {
+      "leaf_topic_id": 14,
+      "leaf_topic_name": "融资融券数据追踪",
+      "parent_topic_name": "资金动向",
+      "exposure_uv": 247452,
+      "click_uv": 7304,
+      "weighted_ctr": 0.029516835588316116,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "15": {
+      "leaf_topic_id": 15,
+      "leaf_topic_name": "智能驾驶与AI科技概念",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 27185,
+      "click_uv": 3458,
+      "weighted_ctr": 0.1272025013794372,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "16": {
+      "leaf_topic_id": 16,
+      "leaf_topic_name": "公司公告与转债申购",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 21073,
+      "click_uv": 2273,
+      "weighted_ctr": 0.1078631424097186,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "17": {
+      "leaf_topic_id": 17,
+      "leaf_topic_name": "跨境ETF溢价与停牌",
+      "parent_topic_name": "基金/ETF",
+      "exposure_uv": 22593,
+      "click_uv": 438,
+      "weighted_ctr": 0.01938653565263577,
+      "quadrant_label": "高曝低点",
+      "region": "B"
+    },
+    "18": {
+      "leaf_topic_id": 18,
+      "leaf_topic_name": "光纤光缆板块异动",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 21527,
+      "click_uv": 1371,
+      "weighted_ctr": 0.06368746225670088,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "19": {
+      "leaf_topic_id": 19,
+      "leaf_topic_name": "国债逆回购与节假日理财",
+      "parent_topic_name": "理财/债券",
+      "exposure_uv": 20303,
+      "click_uv": 1591,
+      "weighted_ctr": 0.07836280352657243,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "21": {
+      "leaf_topic_id": 21,
+      "leaf_topic_name": "MLCC与被动元件涨价",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 16974,
+      "click_uv": 1482,
+      "weighted_ctr": 0.08731000353481795,
+      "quadrant_label": "低曝高点",
+      "region": "C"
+    },
+    "22": {
+      "leaf_topic_id": 22,
+      "leaf_topic_name": "船舶制造与平陆运河",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 7531,
+      "click_uv": 334,
+      "weighted_ctr": 0.044350019917673615,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "23": {
+      "leaf_topic_id": 23,
+      "leaf_topic_name": "半导体量产与民企500强",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 30753,
+      "click_uv": 1998,
+      "weighted_ctr": 0.0649692712906058,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "24": {
+      "leaf_topic_id": 24,
+      "leaf_topic_name": "AI应用与AI医疗制药",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 32337,
+      "click_uv": 2893,
+      "weighted_ctr": 0.08946408139283174,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "25": {
+      "leaf_topic_id": 25,
+      "leaf_topic_name": "广州工控与地方国资",
+      "parent_topic_name": "个股动态",
+      "exposure_uv": 738,
+      "click_uv": 179,
+      "weighted_ctr": 0.24254742547425473,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "26": {
+      "leaf_topic_id": 26,
+      "leaf_topic_name": "沈鼓集团新股上市异动",
+      "parent_topic_name": "个股动态",
+      "exposure_uv": 170235,
+      "click_uv": 13457,
+      "weighted_ctr": 0.07904954915264194,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "27": {
+      "leaf_topic_id": 27,
+      "leaf_topic_name": "国际关系与中美经贸磋商",
+      "parent_topic_name": "宏观经济",
+      "exposure_uv": 50531,
+      "click_uv": 6090,
+      "weighted_ctr": 0.1205200767845481,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "28": {
+      "leaf_topic_id": 28,
+      "leaf_topic_name": "培育钻石与金刚石概念",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 5776,
+      "click_uv": 147,
+      "weighted_ctr": 0.025450138504155125,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "29": {
+      "leaf_topic_id": 29,
+      "leaf_topic_name": "医药研发与药品获批",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 31634,
+      "click_uv": 2130,
+      "weighted_ctr": 0.0673326168047038,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "30": {
+      "leaf_topic_id": 30,
+      "leaf_topic_name": "半导体与PCB产业链涨价",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 32606,
+      "click_uv": 2449,
+      "weighted_ctr": 0.07510887566705514,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "31": {
+      "leaf_topic_id": 31,
+      "leaf_topic_name": "医药板块与机构调研",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 6313,
+      "click_uv": 295,
+      "weighted_ctr": 0.04672897196261682,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "32": {
+      "leaf_topic_id": 32,
+      "leaf_topic_name": "美股行情与中概股表现",
+      "parent_topic_name": "海外市场",
+      "exposure_uv": 38138,
+      "click_uv": 2189,
+      "weighted_ctr": 0.057396822067229535,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "33": {
+      "leaf_topic_id": 33,
+      "leaf_topic_name": "个股异动与三季报预期",
+      "parent_topic_name": "个股动态",
+      "exposure_uv": 47982,
+      "click_uv": 872,
+      "weighted_ctr": 0.018173481722312534,
+      "quadrant_label": "高曝低点",
+      "region": "B"
+    },
+    "34": {
+      "leaf_topic_id": 34,
+      "leaf_topic_name": "监管问询与规划发布",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 15590,
+      "click_uv": 1137,
+      "weighted_ctr": 0.07293136626042335,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "35": {
+      "leaf_topic_id": 35,
+      "leaf_topic_name": "白酒中秋动销与行业趋势",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 5480,
+      "click_uv": 486,
+      "weighted_ctr": 0.08868613138686131,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "36": {
+      "leaf_topic_id": 36,
+      "leaf_topic_name": "美股存储芯片与债市异动",
+      "parent_topic_name": "海外市场",
+      "exposure_uv": 15184,
+      "click_uv": 1137,
+      "weighted_ctr": 0.07488145416227608,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "37": {
+      "leaf_topic_id": 37,
+      "leaf_topic_name": "节假日休市安排",
+      "parent_topic_name": "交易规则",
+      "exposure_uv": 31491,
+      "click_uv": 5627,
+      "weighted_ctr": 0.17868597377028358,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "38": {
+      "leaf_topic_id": 38,
+      "leaf_topic_name": "龙虎榜数据汇总",
+      "parent_topic_name": "资金动向",
+      "exposure_uv": 11893,
+      "click_uv": 303,
+      "weighted_ctr": 0.025477171445388042,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "39": {
+      "leaf_topic_id": 39,
+      "leaf_topic_name": "股东大会与业绩说明会",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 13224,
+      "click_uv": 583,
+      "weighted_ctr": 0.0440865093768905,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "40": {
+      "leaf_topic_id": 40,
+      "leaf_topic_name": "国际原油价格与暗盘",
+      "parent_topic_name": "大宗商品",
+      "exposure_uv": 11623,
+      "click_uv": 1575,
+      "weighted_ctr": 0.13550718403166137,
+      "quadrant_label": "低曝高点",
+      "region": "C"
+    },
+    "41": {
+      "leaf_topic_id": 41,
+      "leaf_topic_name": "锂电池与储能产业链",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 41631,
+      "click_uv": 3613,
+      "weighted_ctr": 0.0867862890634383,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "42": {
+      "leaf_topic_id": 42,
+      "leaf_topic_name": "华为汽车合作与产业并购",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 14440,
+      "click_uv": 1314,
+      "weighted_ctr": 0.0909972299168975,
+      "quadrant_label": "低曝高点",
+      "region": "C"
+    },
+    "43": {
+      "leaf_topic_id": 43,
+      "leaf_topic_name": "新股上市与临时停牌",
+      "parent_topic_name": "新股",
+      "exposure_uv": 88249,
+      "click_uv": 8565,
+      "weighted_ctr": 0.09705492413511768,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "44": {
+      "leaf_topic_id": 44,
+      "leaf_topic_name": "涨停复盘与筹码换手",
+      "parent_topic_name": "市场行情",
+      "exposure_uv": 13813,
+      "click_uv": 846,
+      "weighted_ctr": 0.06124665170491566,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "45": {
+      "leaf_topic_id": 45,
+      "leaf_topic_name": "光模块与CPO产业链",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 15323,
+      "click_uv": 662,
+      "weighted_ctr": 0.04320302812765124,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "46": {
+      "leaf_topic_id": 46,
+      "leaf_topic_name": "次新股与热门股异动",
+      "parent_topic_name": "个股动态",
+      "exposure_uv": 49804,
+      "click_uv": 5838,
+      "weighted_ctr": 0.11721950044173159,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "47": {
+      "leaf_topic_id": 47,
+      "leaf_topic_name": "AI安全与网络安全",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 17048,
+      "click_uv": 1722,
+      "weighted_ctr": 0.10100891600187706,
+      "quadrant_label": "低曝高点",
+      "region": "C"
+    },
+    "48": {
+      "leaf_topic_id": 48,
+      "leaf_topic_name": "并购重组与停牌",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 23518,
+      "click_uv": 3026,
+      "weighted_ctr": 0.12866740369079002,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "49": {
+      "leaf_topic_id": 49,
+      "leaf_topic_name": "CPU与算力芯片",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 40686,
+      "click_uv": 3001,
+      "weighted_ctr": 0.07376001573022661,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "50": {
+      "leaf_topic_id": 50,
+      "leaf_topic_name": "石油与能源主题ETF",
+      "parent_topic_name": "基金/ETF",
+      "exposure_uv": 285,
+      "click_uv": 27,
+      "weighted_ctr": 0.09473684210526316,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "51": {
+      "leaf_topic_id": 51,
+      "leaf_topic_name": "IPO政策与科技打新",
+      "parent_topic_name": "新股",
+      "exposure_uv": 5242,
+      "click_uv": 521,
+      "weighted_ctr": 0.09938954597481878,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "52": {
+      "leaf_topic_id": 52,
+      "leaf_topic_name": "中材科技与特种玻纤",
+      "parent_topic_name": "个股动态",
+      "exposure_uv": 1971,
+      "click_uv": 248,
+      "weighted_ctr": 0.12582445459157787,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "53": {
+      "leaf_topic_id": 53,
+      "leaf_topic_name": "监管工作函与风险提示",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 30340,
+      "click_uv": 2971,
+      "weighted_ctr": 0.09792353328938695,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "54": {
+      "leaf_topic_id": 54,
+      "leaf_topic_name": "权益分派与分红实施",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 20781,
+      "click_uv": 1037,
+      "weighted_ctr": 0.04990135219671816,
+      "quadrant_label": "高曝低点",
+      "region": "B"
+    },
+    "55": {
+      "leaf_topic_id": 55,
+      "leaf_topic_name": "产能扩张与定增预案",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 33919,
+      "click_uv": 2227,
+      "weighted_ctr": 0.0656564167575695,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "56": {
+      "leaf_topic_id": 56,
+      "leaf_topic_name": "人形机器人与特斯拉产业链",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 16216,
+      "click_uv": 1277,
+      "weighted_ctr": 0.078749383325111,
+      "quadrant_label": "低曝高点",
+      "region": "C"
+    },
+    "57": {
+      "leaf_topic_id": 57,
+      "leaf_topic_name": "创新药与CXO板块",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 127962,
+      "click_uv": 15551,
+      "weighted_ctr": 0.12152826620402932,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "58": {
+      "leaf_topic_id": 58,
+      "leaf_topic_name": "AI智能体与海外AI巨头",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 104655,
+      "click_uv": 9243,
+      "weighted_ctr": 0.08831876164540634,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "59": {
+      "leaf_topic_id": 59,
+      "leaf_topic_name": "长鑫科技与存储芯片",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 15483,
+      "click_uv": 669,
+      "weighted_ctr": 0.043208680488277466,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "60": {
+      "leaf_topic_id": 60,
+      "leaf_topic_name": "金风科技与风电动态",
+      "parent_topic_name": "个股动态",
+      "exposure_uv": 1380,
+      "click_uv": 10,
+      "weighted_ctr": 0.007246376811594203,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "61": {
+      "leaf_topic_id": 61,
+      "leaf_topic_name": "新股申购与中签号",
+      "parent_topic_name": "新股",
+      "exposure_uv": 88044,
+      "click_uv": 4285,
+      "weighted_ctr": 0.04866884739448458,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "62": {
+      "leaf_topic_id": 62,
+      "leaf_topic_name": "股东减持与高位套现",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 9763,
+      "click_uv": 510,
+      "weighted_ctr": 0.0522380415855782,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "63": {
+      "leaf_topic_id": 63,
+      "leaf_topic_name": "煤炭板块与高股息资产",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 18109,
+      "click_uv": 1379,
+      "weighted_ctr": 0.07614998067259374,
+      "quadrant_label": "低曝高点",
+      "region": "C"
+    },
+    "64": {
+      "leaf_topic_id": 64,
+      "leaf_topic_name": "股权变动与增持收购",
+      "parent_topic_name": "公司要闻",
+      "exposure_uv": 65999,
+      "click_uv": 3000,
+      "weighted_ctr": 0.0454552341702147,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "65": {
+      "leaf_topic_id": 65,
+      "leaf_topic_name": "玻璃基板与先进封装",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 33534,
+      "click_uv": 2534,
+      "weighted_ctr": 0.07556509810938153,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "66": {
+      "leaf_topic_id": 66,
+      "leaf_topic_name": "AI影视与院线电影",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 15478,
+      "click_uv": 1671,
+      "weighted_ctr": 0.10795968471378731,
+      "quadrant_label": "低曝高点",
+      "region": "C"
+    },
+    "67": {
+      "leaf_topic_id": 67,
+      "leaf_topic_name": "房地产板块与万科",
+      "parent_topic_name": "概念板块",
+      "exposure_uv": 134231,
+      "click_uv": 8400,
+      "weighted_ctr": 0.06257868897646594,
+      "quadrant_label": "高曝高点",
+      "region": "A"
+    },
+    "69": {
+      "leaf_topic_id": 69,
+      "leaf_topic_name": "AI行业应用与场景落地",
+      "parent_topic_name": "AI与科技概念",
+      "exposure_uv": 1709,
+      "click_uv": 271,
+      "weighted_ctr": 0.1585722644821533,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "70": {
+      "leaf_topic_id": 70,
+      "leaf_topic_name": "冰雪经济概念异动",
+      "parent_topic_name": "消费与旅游概念",
+      "exposure_uv": 5549,
+      "click_uv": 712,
+      "weighted_ctr": 0.12831140746080374,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "71": {
+      "leaf_topic_id": 71,
+      "leaf_topic_name": "医药医疗政策与概念异动",
+      "parent_topic_name": "医药医疗概念",
+      "exposure_uv": 5164,
+      "click_uv": 373,
+      "weighted_ctr": 0.0722308288148722,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "72": {
+      "leaf_topic_id": 72,
+      "leaf_topic_name": "游戏行业景气度",
+      "parent_topic_name": "传媒与游戏概念",
+      "exposure_uv": 1848,
+      "click_uv": 256,
+      "weighted_ctr": 0.13852813852813853,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "73": {
+      "leaf_topic_id": 73,
+      "leaf_topic_name": "现代物流规划与政策",
+      "parent_topic_name": "交通运输与物流概念",
+      "exposure_uv": 176,
+      "click_uv": 3,
+      "weighted_ctr": 0.017045454545454544,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "74": {
+      "leaf_topic_id": 74,
+      "leaf_topic_name": "跨境金融与数字人民币",
+      "parent_topic_name": "大金融概念",
+      "exposure_uv": 642,
+      "click_uv": 68,
+      "weighted_ctr": 0.1059190031152648,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "76": {
+      "leaf_topic_id": 76,
+      "leaf_topic_name": "半导体产业链动态与交易",
+      "parent_topic_name": "半导体与集成电路",
+      "exposure_uv": 20517,
+      "click_uv": 597,
+      "weighted_ctr": 0.029097821318906272,
+      "quadrant_label": "高曝低点",
+      "region": "B"
+    },
+    "77": {
+      "leaf_topic_id": 77,
+      "leaf_topic_name": "PCB、覆铜板及电子材料",
+      "parent_topic_name": "电子材料与PCB",
+      "exposure_uv": 9415,
+      "click_uv": 147,
+      "weighted_ctr": 0.015613382899628252,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "78": {
+      "leaf_topic_id": 78,
+      "leaf_topic_name": "机器人、无人机与卫星互联网",
+      "parent_topic_name": "机器人与商业航天",
+      "exposure_uv": 21129,
+      "click_uv": 497,
+      "weighted_ctr": 0.02352217331629514,
+      "quadrant_label": "高曝低点",
+      "region": "B"
+    },
+    "79": {
+      "leaf_topic_id": 79,
+      "leaf_topic_name": "融资融券、大宗交易与资金流向",
+      "parent_topic_name": "资金流向与交易",
+      "exposure_uv": 24798,
+      "click_uv": 524,
+      "weighted_ctr": 0.021130736349705623,
+      "quadrant_label": "高曝低点",
+      "region": "B"
+    },
+    "80": {
+      "leaf_topic_id": 80,
+      "leaf_topic_name": "定增募资、并购重组与项目投资",
+      "parent_topic_name": "公司资本运作",
+      "exposure_uv": 5923,
+      "click_uv": 143,
+      "weighted_ctr": 0.02414317069052845,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "81": {
+      "leaf_topic_id": 81,
+      "leaf_topic_name": "算力基础设施与通信设备",
+      "parent_topic_name": "算力与通信",
+      "exposure_uv": 15017,
+      "click_uv": 1624,
+      "weighted_ctr": 0.1081441033495372,
+      "quadrant_label": "低曝高点",
+      "region": "C"
+    },
+    "82": {
+      "leaf_topic_id": 82,
+      "leaf_topic_name": "风电、光伏与电力设备",
+      "parent_topic_name": "新能源与电力设备",
+      "exposure_uv": 1840,
+      "click_uv": 29,
+      "weighted_ctr": 0.01576086956521739,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "84": {
+      "leaf_topic_id": 84,
+      "leaf_topic_name": "公司诉讼、违约与法律纠纷",
+      "parent_topic_name": "公司风险与法律纠纷",
+      "exposure_uv": 4892,
+      "click_uv": 355,
+      "weighted_ctr": 0.07256745707277187,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "87": {
+      "leaf_topic_id": 87,
+      "leaf_topic_name": "公司二级市场表现与综合动态",
+      "parent_topic_name": "公司日常经营与行情",
+      "exposure_uv": 846,
+      "click_uv": 8,
+      "weighted_ctr": 0.009456264775413711,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    },
+    "88": {
+      "leaf_topic_id": 88,
+      "leaf_topic_name": "宏观指标与地缘政治情绪",
+      "parent_topic_name": "宏观指标与市场情绪",
+      "exposure_uv": 414,
+      "click_uv": 70,
+      "weighted_ctr": 0.16908212560386474,
+      "quadrant_label": "低曝低点",
+      "region": "D"
+    }
+  }
+}

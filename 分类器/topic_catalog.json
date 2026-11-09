@@ -1,0 +1,2108 @@
+{
+  "parent_topics": {
+    "0": {
+      "parent_topic_id": 0,
+      "parent_topic_name": "AI与科技概念",
+      "leaf_topic_ids": [
+        69
+      ]
+    },
+    "1": {
+      "parent_topic_id": 1,
+      "parent_topic_name": "个股动态",
+      "leaf_topic_ids": [
+        0,
+        12,
+        25,
+        26,
+        33,
+        46,
+        52,
+        60
+      ]
+    },
+    "2": {
+      "parent_topic_id": 2,
+      "parent_topic_name": "交易规则",
+      "leaf_topic_ids": [
+        37
+      ]
+    },
+    "3": {
+      "parent_topic_id": 3,
+      "parent_topic_name": "交通运输与物流概念",
+      "leaf_topic_ids": [
+        73
+      ]
+    },
+    "4": {
+      "parent_topic_id": 4,
+      "parent_topic_name": "传媒与游戏概念",
+      "leaf_topic_ids": [
+        72
+      ]
+    },
+    "5": {
+      "parent_topic_id": 5,
+      "parent_topic_name": "公司日常经营与行情",
+      "leaf_topic_ids": [
+        87
+      ]
+    },
+    "6": {
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "leaf_topic_ids": [
+        3,
+        5,
+        10,
+        16,
+        23,
+        34,
+        39,
+        48,
+        53,
+        54,
+        55,
+        62,
+        64
+      ]
+    },
+    "7": {
+      "parent_topic_id": 7,
+      "parent_topic_name": "公司财报",
+      "leaf_topic_ids": [
+        11
+      ]
+    },
+    "8": {
+      "parent_topic_id": 8,
+      "parent_topic_name": "公司资本运作",
+      "leaf_topic_ids": [
+        80
+      ]
+    },
+    "9": {
+      "parent_topic_id": 9,
+      "parent_topic_name": "公司风险与法律纠纷",
+      "leaf_topic_ids": [
+        84
+      ]
+    },
+    "10": {
+      "parent_topic_id": 10,
+      "parent_topic_name": "医药医疗概念",
+      "leaf_topic_ids": [
+        71
+      ]
+    },
+    "11": {
+      "parent_topic_id": 11,
+      "parent_topic_name": "半导体与集成电路",
+      "leaf_topic_ids": [
+        76
+      ]
+    },
+    "12": {
+      "parent_topic_id": 12,
+      "parent_topic_name": "基金/ETF",
+      "leaf_topic_ids": [
+        17,
+        50
+      ]
+    },
+    "13": {
+      "parent_topic_id": 13,
+      "parent_topic_name": "大宗商品",
+      "leaf_topic_ids": [
+        40
+      ]
+    },
+    "14": {
+      "parent_topic_id": 14,
+      "parent_topic_name": "大金融概念",
+      "leaf_topic_ids": [
+        74
+      ]
+    },
+    "15": {
+      "parent_topic_id": 15,
+      "parent_topic_name": "宏观指标与市场情绪",
+      "leaf_topic_ids": [
+        88
+      ]
+    },
+    "16": {
+      "parent_topic_id": 16,
+      "parent_topic_name": "宏观经济",
+      "leaf_topic_ids": [
+        9,
+        27
+      ]
+    },
+    "17": {
+      "parent_topic_id": 17,
+      "parent_topic_name": "市场行情",
+      "leaf_topic_ids": [
+        4,
+        44
+      ]
+    },
+    "18": {
+      "parent_topic_id": 18,
+      "parent_topic_name": "新股",
+      "leaf_topic_ids": [
+        43,
+        51,
+        61
+      ]
+    },
+    "19": {
+      "parent_topic_id": 19,
+      "parent_topic_name": "新能源与电力设备",
+      "leaf_topic_ids": [
+        82
+      ]
+    },
+    "20": {
+      "parent_topic_id": 20,
+      "parent_topic_name": "机器人与商业航天",
+      "leaf_topic_ids": [
+        78
+      ]
+    },
+    "21": {
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "leaf_topic_ids": [
+        7,
+        13,
+        15,
+        18,
+        21,
+        22,
+        24,
+        28,
+        29,
+        30,
+        31,
+        35,
+        41,
+        42,
+        45,
+        47,
+        49,
+        56,
+        57,
+        58,
+        59,
+        63,
+        65,
+        66,
+        67
+      ]
+    },
+    "22": {
+      "parent_topic_id": 22,
+      "parent_topic_name": "海外市场",
+      "leaf_topic_ids": [
+        32,
+        36
+      ]
+    },
+    "23": {
+      "parent_topic_id": 23,
+      "parent_topic_name": "消费与旅游概念",
+      "leaf_topic_ids": [
+        70
+      ]
+    },
+    "24": {
+      "parent_topic_id": 24,
+      "parent_topic_name": "理财/债券",
+      "leaf_topic_ids": [
+        19
+      ]
+    },
+    "25": {
+      "parent_topic_id": 25,
+      "parent_topic_name": "电子材料与PCB",
+      "leaf_topic_ids": [
+        77
+      ]
+    },
+    "26": {
+      "parent_topic_id": 26,
+      "parent_topic_name": "算力与通信",
+      "leaf_topic_ids": [
+        81
+      ]
+    },
+    "27": {
+      "parent_topic_id": 27,
+      "parent_topic_name": "资金动向",
+      "leaf_topic_ids": [
+        2,
+        6,
+        8,
+        14,
+        38
+      ]
+    },
+    "28": {
+      "parent_topic_id": 28,
+      "parent_topic_name": "资金流向与交易",
+      "leaf_topic_ids": [
+        79
+      ]
+    }
+  },
+  "leaf_topics": {
+    "0": {
+      "leaf_topic_id": 0,
+      "leaf_topic_name": "贵州茅台及白酒投资",
+      "parent_topic_id": 1,
+      "parent_topic_name": "个股动态",
+      "training_examples": 14,
+      "qwen_coherence": "高",
+      "review_note": "围绕贵州茅台及白酒板块的投资动态，主题集中。",
+      "source_topic_ids": [
+        0
+      ],
+      "representative_searches": [
+        "白酒双节动销旺季不旺",
+        "i茅台四季酒上线售罄",
+        "白酒板块全线飘红",
+        "茅台",
+        "段永平买入贵州茅台",
+        "段永平加仓贵州茅台",
+        "段永平买入3万股茅台",
+        "贵州茅台新品上市"
+      ],
+      "training_centroid_similarity_p05": 0.6858829259872437,
+      "training_centroid_similarity_median": 0.8379690647125244
+    },
+    "2": {
+      "leaf_topic_id": 2,
+      "leaf_topic_name": "个股龙虎榜数据",
+      "parent_topic_id": 27,
+      "parent_topic_name": "资金动向",
+      "training_examples": 9,
+      "qwen_coherence": "高",
+      "review_note": "聚焦特定个股的龙虎榜交易数据，主题集中。",
+      "source_topic_ids": [
+        2
+      ],
+      "representative_searches": [
+        "张江跻身全球生物医药重镇",
+        "奥佳华上半年业绩亏损",
+        "奥佳华",
+        "南华生物",
+        "000504",
+        "猴",
+        "002614",
+        "蛋白"
+      ],
+      "training_centroid_similarity_p05": 0.655996561050415,
+      "training_centroid_similarity_median": 0.7706122398376465
+    },
+    "3": {
+      "leaf_topic_id": 3,
+      "leaf_topic_name": "个股重大事件与公告",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 24,
+      "qwen_coherence": "中",
+      "review_note": "包含实控人留置、中标、财报等多种公告，但均围绕个股重大事件。",
+      "source_topic_ids": [
+        3
+      ],
+      "representative_searches": [
+        "美国启动对DRAM设备337调查，进行哪些公司？",
+        "存储龙头11天完成回购",
+        "三安光电",
+        "百亿家居龙头跨界PCB",
+        "美光财报下周亮相",
+        "GPU龙头获资金抄底",
+        "甲骨文",
+        "三星电气一字涨停"
+      ],
+      "training_centroid_similarity_p05": 0.6783159971237183,
+      "training_centroid_similarity_median": 0.7644873857498169
+    },
+    "4": {
+      "leaf_topic_id": 4,
+      "leaf_topic_name": "市场行情与指数涨跌",
+      "parent_topic_id": 17,
+      "parent_topic_name": "市场行情",
+      "training_examples": 39,
+      "qwen_coherence": "中",
+      "review_note": "涵盖A股、美股及金龙指数等涨跌行情，主题较为宽泛。",
+      "source_topic_ids": [
+        4
+      ],
+      "representative_searches": [
+        "广州第一芯中签率出炉",
+        "华字辈",
+        "福建板块",
+        "第八轮中美经贸磋商成果利好股分析",
+        "漳州发展获国家发明专利",
+        "纳斯达克金龙",
+        "华字辈多股涨停，主要原因分析",
+        "新华"
+      ],
+      "training_centroid_similarity_p05": 0.7438981533050537,
+      "training_centroid_similarity_median": 0.8339233994483948
+    },
+    "5": {
+      "leaf_topic_id": 5,
+      "leaf_topic_name": "券商重组与中金公司复牌",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 87,
+      "qwen_coherence": "高",
+      "review_note": "高度聚焦券商行业合并及中金公司复牌事件。",
+      "source_topic_ids": [
+        5
+      ],
+      "representative_searches": [
+        "上交所通报关注沈鼓集团",
+        "习近平",
+        "海南瑞泽被央资举牌",
+        "白酒行业转向开瓶动销",
+        "房地产板块逆势活跃",
+        "陕西首富拟入主*ST西旅",
+        "072913",
+        "休市"
+      ],
+      "training_centroid_similarity_p05": 0.7451402544975281,
+      "training_centroid_similarity_median": 0.8456156849861145
+    },
+    "6": {
+      "leaf_topic_id": 6,
+      "leaf_topic_name": "游资席位与个股异动",
+      "parent_topic_id": 27,
+      "parent_topic_name": "资金动向",
+      "training_examples": 8,
+      "qwen_coherence": "中",
+      "review_note": "结合游资席位买入与光通信等个股异动，意图相关。",
+      "source_topic_ids": [
+        6
+      ],
+      "representative_searches": [
+        "西大街席位买入超声电子",
+        "飞利信成立科技公司",
+        "crdo",
+        "600105",
+        "长缆科技",
+        "605488",
+        "远望谷",
+        "Zaker"
+      ],
+      "training_centroid_similarity_p05": 0.7065675258636475,
+      "training_centroid_similarity_median": 0.7740969061851501
+    },
+    "7": {
+      "leaf_topic_id": 7,
+      "leaf_topic_name": "农业板块与厄尔尼诺概念",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 41,
+      "qwen_coherence": "高",
+      "review_note": "围绕农业、粮食及厄尔尼诺天气对农产品的影响，主题集中。",
+      "source_topic_ids": [
+        7
+      ],
+      "representative_searches": [
+        "生猪期货价格探底",
+        "万向德农涨停",
+        "碳酸锂",
+        "厄尔尼诺",
+        "金健米业这次地板后还会像之前一样新高吗？",
+        "硫磺",
+        "全球粮价中枢或上行",
+        "铜价"
+      ],
+      "training_centroid_similarity_p05": 0.6259607076644897,
+      "training_centroid_similarity_median": 0.7098000049591064
+    },
+    "8": {
+      "leaf_topic_id": 8,
+      "leaf_topic_name": "资金动向与大佬调仓",
+      "parent_topic_id": 27,
+      "parent_topic_name": "资金动向",
+      "training_examples": 75,
+      "qwen_coherence": "中",
+      "review_note": "包含主力资金、特朗普账户调仓及公司回购，均属于资金面动态。",
+      "source_topic_ids": [
+        8
+      ],
+      "representative_searches": [
+        "四家上市公司遭立案",
+        "新易盛成交额超150亿",
+        "特朗普账户7月调仓曝光",
+        "主力资金大幅净流入",
+        "特朗普披露名下账户交易",
+        "和远气体收购子公司股权",
+        "天赐材料股价腰斩",
+        "格林美管理价格风险"
+      ],
+      "training_centroid_similarity_p05": 0.6441118121147156,
+      "training_centroid_similarity_median": 0.7564997673034668
+    },
+    "9": {
+      "leaf_topic_id": 9,
+      "leaf_topic_name": "美联储货币政策与美债",
+      "parent_topic_id": 16,
+      "parent_topic_name": "宏观经济",
+      "training_examples": 40,
+      "qwen_coherence": "高",
+      "review_note": "聚焦美联储加息预期及美债收益率走势，主题高度一致。",
+      "source_topic_ids": [
+        9
+      ],
+      "representative_searches": [
+        "存储通胀波及面扩大",
+        "美债收益率",
+        "美联储加息大消息",
+        "美股暴涨创历史新高",
+        "美债收益率引新危机",
+        "央行实施宽松货币政策",
+        "美联储大佬集体表态",
+        "美债恐慌冲击股市"
+      ],
+      "training_centroid_similarity_p05": 0.7277634739875793,
+      "training_centroid_similarity_median": 0.8151964545249939
+    },
+    "10": {
+      "leaf_topic_id": 10,
+      "leaf_topic_name": "公司传闻回应与人事变动",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 30,
+      "qwen_coherence": "中",
+      "review_note": "涉及公司回应市场传闻及高管人事交接，属于公司层面动态。",
+      "source_topic_ids": [
+        10
+      ],
+      "representative_searches": [
+        "长鑫科技兆易创新大涨",
+        "米哈游前员工受贿被捕",
+        "中美科技巨头资本逻辑迥异",
+        "中信证券权力交接",
+        "融资客最新抢筹股曝光",
+        "国际评级机构上调中券评级",
+        "山子高科回应入主哪吒",
+        "爱奇艺"
+      ],
+      "training_centroid_similarity_p05": 0.6797150373458862,
+      "training_centroid_similarity_median": 0.7515125274658203
+    },
+    "11": {
+      "leaf_topic_id": 11,
+      "leaf_topic_name": "财报业绩披露",
+      "parent_topic_id": 7,
+      "parent_topic_name": "公司财报",
+      "training_examples": 55,
+      "qwen_coherence": "高",
+      "review_note": "集中展示中报、净利润等财务业绩数据，主题明确。；拆分后归并：与11（财报业绩披露）高度重合，均聚焦公司核心财务业绩数据，合并至11。",
+      "source_topic_ids": [
+        11,
+        20
+      ],
+      "representative_searches": [
+        "凯达重工上市首日大涨",
+        "科陆电子面临ST风险",
+        "玖龙纸业年盈利超35亿",
+        "麦格米特成立新公司",
+        "胜宏科技回应股权激励目标",
+        "宝胜股份召开业绩说明会",
+        "600843",
+        "605366"
+      ],
+      "training_centroid_similarity_p05": 0.7071336507797241,
+      "training_centroid_similarity_median": 0.8314157128334045
+    },
+    "12": {
+      "leaf_topic_id": 12,
+      "leaf_topic_name": "方正科技个股动态",
+      "parent_topic_id": 1,
+      "parent_topic_name": "个股动态",
+      "training_examples": 1,
+      "qwen_coherence": "高",
+      "review_note": "单一股票方正科技的资讯聚合，主题极度集中。",
+      "source_topic_ids": [
+        12
+      ],
+      "representative_searches": [
+        "方正科技"
+      ],
+      "training_centroid_similarity_p05": 1.0,
+      "training_centroid_similarity_median": 1.0
+    },
+    "13": {
+      "leaf_topic_id": 13,
+      "leaf_topic_name": "卫星互联网与商业航天",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 22,
+      "qwen_coherence": "高",
+      "review_note": "围绕卫星组网、太空算力及商业航天发射，主题集中。",
+      "source_topic_ids": [
+        13
+      ],
+      "representative_searches": [
+        "太空AI卫星发射时间确定",
+        "太空算力概念股梳理",
+        "晶澳科技开展太空验证",
+        "卫星互联网投资机会",
+        "卫星互联网组网提速",
+        "蓝箭航天闯关上市",
+        "SpaceX星舰入轨成功",
+        "低轨星座加速组网"
+      ],
+      "training_centroid_similarity_p05": 0.6960515379905701,
+      "training_centroid_similarity_median": 0.7493338584899902
+    },
+    "14": {
+      "leaf_topic_id": 14,
+      "leaf_topic_name": "融资融券数据追踪",
+      "parent_topic_id": 27,
+      "parent_topic_name": "资金动向",
+      "training_examples": 265,
+      "qwen_coherence": "高",
+      "review_note": "聚焦两融余额、融资净买入与偿还数据，主题明确。；聚焦两融余额、融资净买入与偿还等资金面数据。；结合两融数据与中国中免等大盘蓝筹股的业绩说明。",
+      "source_topic_ids": [
+        14,
+        39,
+        64
+      ],
+      "representative_searches": [
+        "机构今日买入18股",
+        "301213拟重大重组",
+        "中际旭创获融资买入居首",
+        "大秦铁路调整分红方案",
+        "安世中国升级晶圆工艺平台",
+        "京东方研发投入超800亿",
+        "N燧原-U",
+        "中国中免召开业绩说明会"
+      ],
+      "training_centroid_similarity_p05": 0.5993407368659973,
+      "training_centroid_similarity_median": 0.7790364027023315
+    },
+    "15": {
+      "leaf_topic_id": 15,
+      "leaf_topic_name": "智能驾驶与AI科技概念",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 45,
+      "qwen_coherence": "中",
+      "review_note": "涵盖智能驾驶、AI应用及赛力斯等，同属大科技范畴。",
+      "source_topic_ids": [
+        15
+      ],
+      "representative_searches": [
+        "京东方确立新定位",
+        "谨慎参与炒字典行情",
+        "欧菲光拿下小米订单",
+        "余承东发声聚焦四界",
+        "赛力斯问界迈入专营模式",
+        "世纪华通大模型完成验证",
+        "自动驾驶按下快进键",
+        "央视专访马斯克"
+      ],
+      "training_centroid_similarity_p05": 0.6819849610328674,
+      "training_centroid_similarity_median": 0.748297929763794
+    },
+    "16": {
+      "leaf_topic_id": 16,
+      "leaf_topic_name": "公司公告与转债申购",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 43,
+      "qwen_coherence": "中",
+      "review_note": "包含各类公司公告及可转债申购信息，属于常规信披。",
+      "source_topic_ids": [
+        16
+      ],
+      "representative_searches": [
+        "371571",
+        "利欧股份签关联交易协议",
+        "盐湖股份遭股东催回购",
+        "巨化股份无逾期担保",
+        "天音控股转让孙公司股权",
+        "信银招银组团入局光伏龙头",
+        "董明珠卸任格力电商法人",
+        "冠盛股份回购注销股票"
+      ],
+      "training_centroid_similarity_p05": 0.7230504155158997,
+      "training_centroid_similarity_median": 0.8048553466796875
+    },
+    "17": {
+      "leaf_topic_id": 17,
+      "leaf_topic_name": "跨境ETF溢价与停牌",
+      "parent_topic_id": 12,
+      "parent_topic_name": "基金/ETF",
+      "training_examples": 44,
+      "qwen_coherence": "高",
+      "review_note": "聚焦纳指等跨境ETF的高溢价及临时停牌风险，主题集中。",
+      "source_topic_ids": [
+        17
+      ],
+      "representative_searches": [
+        "东方财富杯",
+        "518880",
+        "纳指",
+        "511360",
+        "景顺纳斯达克",
+        "算力需求有望指数级增长",
+        "159509",
+        "513100"
+      ],
+      "training_centroid_similarity_p05": 0.6597725749015808,
+      "training_centroid_similarity_median": 0.7881394028663635
+    },
+    "18": {
+      "leaf_topic_id": 18,
+      "leaf_topic_name": "光纤光缆板块异动",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 18,
+      "qwen_coherence": "高",
+      "review_note": "围绕光纤龙头跌停及沃格光电涨停等通信板块异动。",
+      "source_topic_ids": [
+        18
+      ],
+      "representative_searches": [
+        "光纤龙头集体大跌",
+        "亨通光电封死跌停",
+        "变压器",
+        "光纤龙头跌停",
+        "华脉科技7天3板",
+        "沃格光电秒封单22万手，玻璃基板量产窗口开启？",
+        "电力板块",
+        "康强电子"
+      ],
+      "training_centroid_similarity_p05": 0.7549476623535156,
+      "training_centroid_similarity_median": 0.8118586540222168
+    },
+    "19": {
+      "leaf_topic_id": 19,
+      "leaf_topic_name": "国债逆回购与节假日理财",
+      "parent_topic_id": 24,
+      "parent_topic_name": "理财/债券",
+      "training_examples": 11,
+      "qwen_coherence": "高",
+      "review_note": "针对双节期间的国债逆回购操作窗口与理财攻略。",
+      "source_topic_ids": [
+        19
+      ],
+      "representative_searches": [
+        "逆回购",
+        "国债逆回购",
+        "国债逆回购双节窗口开启",
+        "央行开展隔夜逆回购操作",
+        "国债逆回购窗口开启",
+        "204001",
+        "逆回购操作",
+        "131810"
+      ],
+      "training_centroid_similarity_p05": 0.8004230260848999,
+      "training_centroid_similarity_median": 0.8814185857772827
+    },
+    "21": {
+      "leaf_topic_id": 21,
+      "leaf_topic_name": "MLCC与被动元件涨价",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 19,
+      "qwen_coherence": "高",
+      "review_note": "聚焦MLCC量价齐升及涨价潮，主题高度一致。",
+      "source_topic_ids": [
+        21
+      ],
+      "representative_searches": [
+        "AI重塑MLCC供需格局",
+        "MLCC新贵六连板",
+        "氧化锆",
+        "MLCC量价齐升",
+        "MLCC量价齐升至2027",
+        "缺货严重！MLCC商家爆单，还有哪些股票可以布局？",
+        "AI催热MLCC量价齐升",
+        "村田"
+      ],
+      "training_centroid_similarity_p05": 0.7776439189910889,
+      "training_centroid_similarity_median": 0.8249937295913696
+    },
+    "22": {
+      "leaf_topic_id": 22,
+      "leaf_topic_name": "船舶制造与平陆运河",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 17,
+      "qwen_coherence": "高",
+      "review_note": "围绕造船业绿色转型及平陆运河通航等交运基建。",
+      "source_topic_ids": [
+        22
+      ],
+      "representative_searches": [
+        "中国造船业换装绿色引擎",
+        "恒力重工矿砂船命名",
+        "平陆运河",
+        "平陆运河通江达海",
+        "中国船舶",
+        "华电新能成立风电公司",
+        "南宁港",
+        "浙江"
+      ],
+      "training_centroid_similarity_p05": 0.6387336850166321,
+      "training_centroid_similarity_median": 0.7189149856567383
+    },
+    "23": {
+      "leaf_topic_id": 23,
+      "leaf_topic_name": "半导体量产与民企500强",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 37,
+      "qwen_coherence": "中",
+      "review_note": "包含安世半导体量产和民企500强榜单，虽同属公司层面但行业跨度较大。",
+      "source_topic_ids": [
+        23
+      ],
+      "representative_searches": [
+        "安世半导体产线逐步量产",
+        "民企500强榜单出炉",
+        "恒力集团",
+        "安世半导体产能恢复",
+        "安世中国押注国产产品",
+        "佰维存储成立半导体公司",
+        "字节跳动",
+        "信息通信展览会开展"
+      ],
+      "training_centroid_similarity_p05": 0.6378286480903625,
+      "training_centroid_similarity_median": 0.7391208410263062
+    },
+    "24": {
+      "leaf_topic_id": 24,
+      "leaf_topic_name": "AI应用与AI医疗制药",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 42,
+      "qwen_coherence": "高",
+      "review_note": "聚焦AI大模型在医疗、制药及基础设施中的应用落地。",
+      "source_topic_ids": [
+        24
+      ],
+      "representative_searches": [
+        "阿里巴巴发布医疗大模型",
+        "AI教育打开成长空间",
+        "AI制药迎海内外双催化",
+        "AI应用概念全线爆发",
+        "均胜电子打造AI基础设施",
+        "世纪华通自研AI模型",
+        "AI智能体概念大火",
+        "端侧AI"
+      ],
+      "training_centroid_similarity_p05": 0.6776094436645508,
+      "training_centroid_similarity_median": 0.7754137516021729
+    },
+    "25": {
+      "leaf_topic_id": 25,
+      "leaf_topic_name": "广州工控与地方国资",
+      "parent_topic_id": 1,
+      "parent_topic_name": "个股动态",
+      "training_examples": 2,
+      "qwen_coherence": "高",
+      "review_note": "围绕广州工控系市值突破千亿及旗下上市公司动态。",
+      "source_topic_ids": [
+        25
+      ],
+      "representative_searches": [
+        "广州工控系市值破千亿",
+        "广州工控市值破千亿"
+      ],
+      "training_centroid_similarity_p05": 0.9819571375846863,
+      "training_centroid_similarity_median": 0.981957197189331
+    },
+    "26": {
+      "leaf_topic_id": 26,
+      "leaf_topic_name": "沈鼓集团新股上市异动",
+      "parent_topic_id": 1,
+      "parent_topic_name": "个股动态",
+      "training_examples": 85,
+      "qwen_coherence": "高",
+      "review_note": "高度聚焦沈鼓集团上市后的暴涨、临停及股价波动。",
+      "source_topic_ids": [
+        26
+      ],
+      "representative_searches": [
+        "沈鼓逼近跌停后翻红",
+        "热门股超24亿元封单",
+        "C沈鼓",
+        "沈鼓股价波动引关注",
+        "易中天",
+        "神股跌停回撤近70%",
+        "沈鼓集团触发二次临停",
+        "C沈鼓低开48%"
+      ],
+      "training_centroid_similarity_p05": 0.6881611347198486,
+      "training_centroid_similarity_median": 0.801546573638916
+    },
+    "27": {
+      "leaf_topic_id": 27,
+      "leaf_topic_name": "国际关系与中美经贸磋商",
+      "parent_topic_id": 16,
+      "parent_topic_name": "宏观经济",
+      "training_examples": 33,
+      "qwen_coherence": "高",
+      "review_note": "聚焦美伊会谈、中美经贸磋商等国际地缘与贸易动态。",
+      "source_topic_ids": [
+        27
+      ],
+      "representative_searches": [
+        "中美达成八点共识",
+        "美伊会谈进展顺利",
+        "中美经贸磋商达成多项共识",
+        "中美经贸磋商达成共识",
+        "访美",
+        "美伊会谈具建设性",
+        "伊朗总统启程赴美",
+        "中美经贸磋商在美举行"
+      ],
+      "training_centroid_similarity_p05": 0.679166853427887,
+      "training_centroid_similarity_median": 0.7949059009552002
+    },
+    "28": {
+      "leaf_topic_id": 28,
+      "leaf_topic_name": "培育钻石与金刚石概念",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 4,
+      "qwen_coherence": "高",
+      "review_note": "围绕培育钻石商业化及金刚石散热等概念异动。",
+      "source_topic_ids": [
+        28
+      ],
+      "representative_searches": [
+        "培育钻石盘中异动",
+        "金刚石散热",
+        "培育钻石",
+        "力量钻石"
+      ],
+      "training_centroid_similarity_p05": 0.9081976413726807,
+      "training_centroid_similarity_median": 0.9442490339279175
+    },
+    "29": {
+      "leaf_topic_id": 29,
+      "leaf_topic_name": "医药研发与药品获批",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 25,
+      "qwen_coherence": "高",
+      "review_note": "聚焦创新药研发进展及子公司药品注册证书获批。",
+      "source_topic_ids": [
+        29
+      ],
+      "representative_searches": [
+        "百花医药不涉创新药研发",
+        "医药工业十五五规划落地",
+        "950441",
+        "津药药业获药品注册证",
+        "北陆药业获滴眼液注册证",
+        "贝达药业药品获积极意见",
+        "688117",
+        "百花"
+      ],
+      "training_centroid_similarity_p05": 0.617429256439209,
+      "training_centroid_similarity_median": 0.7506245374679565
+    },
+    "30": {
+      "leaf_topic_id": 30,
+      "leaf_topic_name": "半导体与PCB产业链涨价",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 59,
+      "qwen_coherence": "高",
+      "review_note": "围绕半导体硅片及PCB板块的涨价潮与扩产动态。",
+      "source_topic_ids": [
+        30
+      ],
+      "representative_searches": [
+        "半导体硅片或迎涨价潮",
+        "PCB板块走强",
+        "芯片股大涨超10%",
+        "PCB行业应用起量",
+        "南宁直抵万亿市场",
+        "公募上周调研92只个股",
+        "显示器市场涨价",
+        "ccl"
+      ],
+      "training_centroid_similarity_p05": 0.6674507260322571,
+      "training_centroid_similarity_median": 0.7688264846801758
+    },
+    "31": {
+      "leaf_topic_id": 31,
+      "leaf_topic_name": "医药板块与机构调研",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 20,
+      "qwen_coherence": "中",
+      "review_note": "涵盖医药股拉升及机构调研业绩暴增股，意图相关。",
+      "source_topic_ids": [
+        31
+      ],
+      "representative_searches": [
+        "机构调研业绩暴增股",
+        "六个核桃",
+        "峆一药业30cm涨停",
+        "万邦医药限售股上市",
+        "301569",
+        "moderna",
+        "恒瑞医药",
+        "医药生物"
+      ],
+      "training_centroid_similarity_p05": 0.6569451689720154,
+      "training_centroid_similarity_median": 0.7739596366882324
+    },
+    "32": {
+      "leaf_topic_id": 32,
+      "leaf_topic_name": "美股行情与中概股表现",
+      "parent_topic_id": 22,
+      "parent_topic_name": "海外市场",
+      "training_examples": 61,
+      "qwen_coherence": "高",
+      "review_note": "聚焦美股指数、中概股及海外科技股的涨跌表现。",
+      "source_topic_ids": [
+        32
+      ],
+      "representative_searches": [
+        "AMD市值破万亿美元",
+        "闪迪大涨超6%",
+        "汉钟精机涨幅超48%",
+        "会稽山单月股价翻倍",
+        "创业板指涨幅归零",
+        "A股公司半年度分红出炉",
+        "采纳股份筹划重要收购",
+        "“羊字辈”玄学炒作还能连板吗？"
+      ],
+      "training_centroid_similarity_p05": 0.6878678798675537,
+      "training_centroid_similarity_median": 0.7971336245536804
+    },
+    "33": {
+      "leaf_topic_id": 33,
+      "leaf_topic_name": "个股异动与三季报预期",
+      "parent_topic_id": 1,
+      "parent_topic_name": "个股动态",
+      "training_examples": 72,
+      "qwen_coherence": "中",
+      "review_note": "结合个股快速上涨与三季报披露时间，属于盘面动态。",
+      "source_topic_ids": [
+        33
+      ],
+      "representative_searches": [
+        "AI应用板块大幅飙升",
+        "上交所三季报披露时间出炉",
+        "金螳螂",
+        "三季报",
+        "百合花",
+        "三季报披露时间",
+        "传智教育涨停",
+        "旅游板块"
+      ],
+      "training_centroid_similarity_p05": 0.6673052310943604,
+      "training_centroid_similarity_median": 0.8114104270935059
+    },
+    "34": {
+      "leaf_topic_id": 34,
+      "leaf_topic_name": "监管问询与规划发布",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 44,
+      "qwen_coherence": "中",
+      "review_note": "包含稀土龙头澄清、监管工作函及十五五规划发布。",
+      "source_topic_ids": [
+        34
+      ],
+      "representative_searches": [
+        "稀土龙头紧急澄清",
+        "八张图看懂央企清欠",
+        "闲鱼涉黄官方回应",
+        "中国科学院十五五发展规划发布，机会挖掘",
+        "海康威视亮相网安宣传周",
+        "注册制次新妖股速览",
+        "胜宏科技变更保荐代表人",
+        "美股网络安全"
+      ],
+      "training_centroid_similarity_p05": 0.6491702795028687,
+      "training_centroid_similarity_median": 0.7453768253326416
+    },
+    "35": {
+      "leaf_topic_id": 35,
+      "leaf_topic_name": "白酒中秋动销与行业趋势",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 6,
+      "qwen_coherence": "高",
+      "review_note": "聚焦白酒行业中秋礼盒退潮及双节动销情况。",
+      "source_topic_ids": [
+        35
+      ],
+      "representative_searches": [
+        "白酒行业回归产品本位",
+        "白酒社交属性变弱",
+        "白酒中秋礼盒退潮",
+        "皇台酒业直线涨停",
+        "汾酒",
+        "皇台酒业"
+      ],
+      "training_centroid_similarity_p05": 0.8689747452735901,
+      "training_centroid_similarity_median": 0.8961067199707031
+    },
+    "36": {
+      "leaf_topic_id": 36,
+      "leaf_topic_name": "美股存储芯片与债市异动",
+      "parent_topic_id": 22,
+      "parent_topic_name": "海外市场",
+      "training_examples": 41,
+      "qwen_coherence": "中",
+      "review_note": "涵盖美股存储芯片跳水及美债收益率、转债异动。",
+      "source_topic_ids": [
+        36
+      ],
+      "representative_searches": [
+        "美股存储芯片股跳水",
+        "两券商遭重罚落地",
+        "百亿成交额股盘点",
+        "绿地控股新增逾期债务",
+        "美存储芯片股跳水",
+        "美股存储芯片股盘前走低",
+        "日债",
+        "存储芯片股跌幅居前"
+      ],
+      "training_centroid_similarity_p05": 0.690158486366272,
+      "training_centroid_similarity_median": 0.7759459018707275
+    },
+    "37": {
+      "leaf_topic_id": 37,
+      "leaf_topic_name": "节假日休市安排",
+      "parent_topic_id": 2,
+      "parent_topic_name": "交易规则",
+      "training_examples": 26,
+      "qwen_coherence": "高",
+      "review_note": "专门针对中秋、国庆等节假日的A股休市安排。",
+      "source_topic_ids": [
+        37
+      ],
+      "representative_searches": [
+        "中秋国庆休市安排",
+        "会稽山有望五天四板",
+        "国庆节休市安排",
+        "休市安排",
+        "财经早餐",
+        "中秋节休市安排",
+        "海峡创新平潭发展涨停",
+        "我国推进新一代通信网建设"
+      ],
+      "training_centroid_similarity_p05": 0.6353695392608643,
+      "training_centroid_similarity_median": 0.7483803629875183
+    },
+    "38": {
+      "leaf_topic_id": 38,
+      "leaf_topic_name": "龙虎榜数据汇总",
+      "parent_topic_id": 27,
+      "parent_topic_name": "资金动向",
+      "training_examples": 44,
+      "qwen_coherence": "高",
+      "review_note": "汇总多只个股的龙虎榜买卖席位数据，主题明确。",
+      "source_topic_ids": [
+        38
+      ],
+      "representative_searches": [
+        "中京电子9月17日龙虎榜",
+        "国芳集团9月17日龙虎榜",
+        "联合光电9月21日龙虎榜",
+        "超声电子龙虎榜数据",
+        "301699",
+        "超声电子",
+        "002285",
+        "603230"
+      ],
+      "training_centroid_similarity_p05": 0.7445859313011169,
+      "training_centroid_similarity_median": 0.8824537992477417
+    },
+    "39": {
+      "leaf_topic_id": 39,
+      "leaf_topic_name": "股东大会与业绩说明会",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 30,
+      "qwen_coherence": "高",
+      "review_note": "集中发布召开临时股东大会及业绩说明会的公告。",
+      "source_topic_ids": [
+        40
+      ],
+      "representative_searches": [
+        "首开股份亮相四大壹号作品",
+        "中粮糖业召开临时股东会",
+        "美诺华召开业绩说明会",
+        "和远气体召开临时股东会",
+        "中秋",
+        "东材科技",
+        "生肖羊",
+        "景顺长城纳斯达克"
+      ],
+      "training_centroid_similarity_p05": 0.7054877281188965,
+      "training_centroid_similarity_median": 0.8213747143745422
+    },
+    "40": {
+      "leaf_topic_id": 40,
+      "leaf_topic_name": "国际原油价格与暗盘",
+      "parent_topic_id": 13,
+      "parent_topic_name": "大宗商品",
+      "training_examples": 15,
+      "qwen_coherence": "高",
+      "review_note": "聚焦国际油价波动、布油及美油暗盘交易动态。",
+      "source_topic_ids": [
+        41
+      ],
+      "representative_searches": [
+        "油价",
+        "原油暗盘",
+        "美油跌破90美元",
+        "国际油价飙涨超3%",
+        "国际油价",
+        "原油暗盘直线闪崩",
+        "暗油",
+        "布伦特原油暗盘"
+      ],
+      "training_centroid_similarity_p05": 0.7973861694335938,
+      "training_centroid_similarity_median": 0.862486720085144
+    },
+    "41": {
+      "leaf_topic_id": 41,
+      "leaf_topic_name": "锂电池与储能产业链",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 49,
+      "qwen_coherence": "高",
+      "review_note": "围绕宁德时代储能调价、杉杉股份投建锂电基地等。",
+      "source_topic_ids": [
+        42
+      ],
+      "representative_searches": [
+        "宁德时代上调储能电芯报价",
+        "杉杉股份投建锂电基地",
+        "隆基电池效率破世界纪录",
+        "功率半导体迎涨价潮",
+        "车企集体抢电池",
+        "光伏企业加速技术突围",
+        "长江电力等成立新公司",
+        "宁德时代回应电芯调价"
+      ],
+      "training_centroid_similarity_p05": 0.6561161875724792,
+      "training_centroid_similarity_median": 0.74516761302948
+    },
+    "42": {
+      "leaf_topic_id": 42,
+      "leaf_topic_name": "华为汽车合作与产业并购",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 38,
+      "qwen_coherence": "中",
+      "review_note": "涵盖北汽蓝谷回应华为合作及多家公司股权收购。",
+      "source_topic_ids": [
+        43
+      ],
+      "representative_searches": [
+        "欧菲光回应网络传闻",
+        "北汽蓝谷回应华为合作",
+        "中岩大地收购鑫寰宇",
+        "厦门钨业提起仲裁",
+        "宝武万华化学签合作协议",
+        "玛莎拉蒂与江淮华为谈判",
+        "湖南签署合作协议",
+        "任正非最新表态华为不造车"
+      ],
+      "training_centroid_similarity_p05": 0.6534350514411926,
+      "training_centroid_similarity_median": 0.753105640411377
+    },
+    "43": {
+      "leaf_topic_id": 43,
+      "leaf_topic_name": "新股上市与临时停牌",
+      "parent_topic_id": 18,
+      "parent_topic_name": "新股",
+      "training_examples": 26,
+      "qwen_coherence": "高",
+      "review_note": "聚焦新股上市首日暴涨及触发二次临时停牌机制。",
+      "source_topic_ids": [
+        44
+      ],
+      "representative_searches": [
+        "N世纪",
+        "N世纪触发二次临停",
+        "新股双双触发二次临停",
+        "新股N中塑涨超900%",
+        "世纪",
+        "N沈鼓",
+        "新股盘中临停",
+        "n世纪"
+      ],
+      "training_centroid_similarity_p05": 0.7782116532325745,
+      "training_centroid_similarity_median": 0.9261600971221924
+    },
+    "44": {
+      "leaf_topic_id": 44,
+      "leaf_topic_name": "涨停复盘与筹码换手",
+      "parent_topic_id": 17,
+      "parent_topic_name": "市场行情",
+      "training_examples": 24,
+      "qwen_coherence": "高",
+      "review_note": "提供每日涨停股复盘及A股筹码大换手数据。",
+      "source_topic_ids": [
+        45
+      ],
+      "representative_searches": [
+        "80只A股筹码大换手",
+        "66只A股筹码大换手",
+        "今日午盘57股涨停",
+        "59股下周面临解禁",
+        "二六三涨停",
+        "涨停复盘",
+        "信诺维涨超19%触发临停",
+        "百亿龙头6次涨停"
+      ],
+      "training_centroid_similarity_p05": 0.7335238456726074,
+      "training_centroid_similarity_median": 0.8013808727264404
+    },
+    "45": {
+      "leaf_topic_id": 45,
+      "leaf_topic_name": "光模块与CPO产业链",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 36,
+      "qwen_coherence": "高",
+      "review_note": "聚焦光模块龙头新易盛、华工科技的研发与调研。",
+      "source_topic_ids": [
+        46
+      ],
+      "representative_searches": [
+        "蓝思科技研发航天级玻璃",
+        "光模块",
+        "铜冠电工量产微晶磷铜球",
+        "海光信息深耕端侧赛道",
+        "光模块龙头迎机构调研",
+        "华虹半导体",
+        "新凯来",
+        "华工科技"
+      ],
+      "training_centroid_similarity_p05": 0.6489856243133545,
+      "training_centroid_similarity_median": 0.7458624839782715
+    },
+    "46": {
+      "leaf_topic_id": 46,
+      "leaf_topic_name": "次新股与热门股异动",
+      "parent_topic_id": 1,
+      "parent_topic_name": "个股动态",
+      "training_examples": 23,
+      "qwen_coherence": "高",
+      "review_note": "关注次新股集体重挫及热门股直线跳水等极端行情。",
+      "source_topic_ids": [
+        47
+      ],
+      "representative_searches": [
+        "次新股集体重挫逾20%",
+        "924行情个股翻倍",
+        "黄酒龙头8月股价翻倍",
+        "多只热门股直线跳水",
+        "十大机构论市持股过节",
+        "5家公司披露回购进展",
+        "A股大跌发生了什么？",
+        "西陇科学业绩补偿陷僵局"
+      ],
+      "training_centroid_similarity_p05": 0.6589839458465576,
+      "training_centroid_similarity_median": 0.7730612754821777
+    },
+    "47": {
+      "leaf_topic_id": 47,
+      "leaf_topic_name": "AI安全与网络安全",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 13,
+      "qwen_coherence": "高",
+      "review_note": "围绕盖茨警告AI安全风险及网络安全需求升温。",
+      "source_topic_ids": [
+        48
+      ],
+      "representative_searches": [
+        "美科技股现危险信号",
+        "矢量网络分析仪概念火了！有哪些股票相关？",
+        "网络安全升温！还能布局哪些股票？",
+        "盖茨加入AI安全论战",
+        "盖茨谈AI安全风险",
+        "盖茨谈AI致命风险",
+        "盖茨发出网络安全警告",
+        "网络安全需求升温"
+      ],
+      "training_centroid_similarity_p05": 0.7453373670578003,
+      "training_centroid_similarity_median": 0.8038654923439026
+    },
+    "48": {
+      "leaf_topic_id": 48,
+      "leaf_topic_name": "并购重组与停牌",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 22,
+      "qwen_coherence": "高",
+      "review_note": "聚焦星帅尔等公司因重大收购事项导致的停牌与涨停。；拆分后归并：与48（并购重组与停牌）高度重合，均聚焦公司重大收购与重组事件，合并至48。",
+      "source_topic_ids": [
+        20,
+        49
+      ],
+      "representative_searches": [
+        "星帅尔拟收购标的停牌",
+        "*ST英飞签署重整协议",
+        "600825",
+        "鸿富诚创业板上市",
+        "停牌",
+        "星帅尔跨界收购企业",
+        "彩虹股份",
+        "920201"
+      ],
+      "training_centroid_similarity_p05": 0.6754050254821777,
+      "training_centroid_similarity_median": 0.8041906356811523
+    },
+    "49": {
+      "leaf_topic_id": 49,
+      "leaf_topic_name": "CPU与算力芯片",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 46,
+      "qwen_coherence": "高",
+      "review_note": "围绕海光信息、龙芯等国产CPU及AI算力芯片突破。",
+      "source_topic_ids": [
+        50
+      ],
+      "representative_searches": [
+        "cpu",
+        "CPU",
+        "金刚石散热市场有望放量",
+        "澜起科技量产DDR5芯片",
+        "AI巨头布局800V架构",
+        "新易盛释放利好",
+        "澳弘电子9天7板",
+        "一博科技杀入中大批量赛道"
+      ],
+      "training_centroid_similarity_p05": 0.6425504684448242,
+      "training_centroid_similarity_median": 0.7350544929504395
+    },
+    "50": {
+      "leaf_topic_id": 50,
+      "leaf_topic_name": "石油与能源主题ETF",
+      "parent_topic_id": 12,
+      "parent_topic_name": "基金/ETF",
+      "training_examples": 2,
+      "qwen_coherence": "高",
+      "review_note": "聚焦石油ETF及海上风电等能源主题基金表现。",
+      "source_topic_ids": [
+        51
+      ],
+      "representative_searches": [
+        "BDTI",
+        "ao"
+      ],
+      "training_centroid_similarity_p05": 0.8327061533927917,
+      "training_centroid_similarity_median": 0.8327061533927917
+    },
+    "51": {
+      "leaf_topic_id": 51,
+      "leaf_topic_name": "IPO政策与科技打新",
+      "parent_topic_id": 18,
+      "parent_topic_name": "新股",
+      "training_examples": 10,
+      "qwen_coherence": "中",
+      "review_note": "涵盖硬科技IPO收紧政策及公募参与打新动态。",
+      "source_topic_ids": [
+        52
+      ],
+      "representative_searches": [
+        "硬科技IPO或将收紧",
+        "A股并购市场保持活跃",
+        "行云科技算力订单狂奔",
+        "行云科技优化收入结构",
+        "公募年内参与打新",
+        "行云科技资金扩容",
+        "行云科技",
+        "红板"
+      ],
+      "training_centroid_similarity_p05": 0.7794759273529053,
+      "training_centroid_similarity_median": 0.8247607350349426
+    },
+    "52": {
+      "leaf_topic_id": 52,
+      "leaf_topic_name": "中材科技与特种玻纤",
+      "parent_topic_id": 1,
+      "parent_topic_name": "个股动态",
+      "training_examples": 4,
+      "qwen_coherence": "高",
+      "review_note": "高度聚焦中材科技特种玻纤布项目加投及投产动态。",
+      "source_topic_ids": [
+        53
+      ],
+      "representative_searches": [
+        "中材科技加投特种电子布",
+        "中材科技",
+        "中材",
+        "002080"
+      ],
+      "training_centroid_similarity_p05": 0.8871998190879822,
+      "training_centroid_similarity_median": 0.9574177265167236
+    },
+    "53": {
+      "leaf_topic_id": 53,
+      "leaf_topic_name": "监管工作函与风险提示",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 44,
+      "qwen_coherence": "高",
+      "review_note": "集中展示交易所监管函、风险提示及澄清公告。",
+      "source_topic_ids": [
+        54
+      ],
+      "representative_searches": [
+        "上交所关注沈鼓集团交易",
+        "盛和资源澄清控股权传闻",
+        "国科发债",
+        "三环集团遭H股减持",
+        "内蒙新华收到监管工作函",
+        "热门股提示交易风险",
+        "内蒙新华收到监管函",
+        "5家券商同日领罚单"
+      ],
+      "training_centroid_similarity_p05": 0.6514156460762024,
+      "training_centroid_similarity_median": 0.7642809152603149
+    },
+    "54": {
+      "leaf_topic_id": 54,
+      "leaf_topic_name": "权益分派与分红实施",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 16,
+      "qwen_coherence": "高",
+      "review_note": "聚焦长电科技等公司的中期分红及股权登记日安排。",
+      "source_topic_ids": [
+        55
+      ],
+      "representative_searches": [
+        "中秋档票房破亿",
+        "放假",
+        "太阳电缆二股东拟减持",
+        "长电科技",
+        "兖矿能源半年度权益分派",
+        "智谱公布补偿方案",
+        "长电科技每股派0.05元",
+        "航天机电下调股权挂牌价"
+      ],
+      "training_centroid_similarity_p05": 0.5996420383453369,
+      "training_centroid_similarity_median": 0.717014491558075
+    },
+    "55": {
+      "leaf_topic_id": 55,
+      "leaf_topic_name": "产能扩张与定增预案",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 45,
+      "qwen_coherence": "高",
+      "review_note": "围绕多行业龙头加码扩产、拟定增募资等资本开支。",
+      "source_topic_ids": [
+        56
+      ],
+      "representative_searches": [
+        "存储龙头加码扩产",
+        "磷化工龙头加码磷酸铁锂",
+        "三维通信公布定增预案",
+        "存储龙头拟45亿扩产",
+        "电子布",
+        "龙头拟定增募资加码项目",
+        "光启技术获9亿订单",
+        "富祥股份绑定电解液企业"
+      ],
+      "training_centroid_similarity_p05": 0.688994288444519,
+      "training_centroid_similarity_median": 0.7576216459274292
+    },
+    "56": {
+      "leaf_topic_id": 56,
+      "leaf_topic_name": "人形机器人与特斯拉产业链",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 27,
+      "qwen_coherence": "高",
+      "review_note": "聚焦特斯拉人形机器人量产及中国产业链合作机遇。",
+      "source_topic_ids": [
+        57
+      ],
+      "representative_searches": [
+        "特斯拉机器人量产在即",
+        "人形机器人降价超七成",
+        "四足机器人进入工厂",
+        "马斯克",
+        "特斯拉机器人周产数百台",
+        "双环传动终止分拆子公司",
+        "马斯克称人形机器人10年达10亿台，受益股有哪些？",
+        "小鹏机器人完成供应链审厂"
+      ],
+      "training_centroid_similarity_p05": 0.6746177077293396,
+      "training_centroid_similarity_median": 0.8259066343307495
+    },
+    "57": {
+      "leaf_topic_id": 57,
+      "leaf_topic_name": "创新药与CXO板块",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 59,
+      "qwen_coherence": "中",
+      "review_note": "以创新药、CXO量价齐升为主，夹杂少量PCB资讯。",
+      "source_topic_ids": [
+        58
+      ],
+      "representative_searches": [
+        "万科A绿地2连板",
+        "CXO有望量价齐升",
+        "PCB概念股反复走强",
+        "莫德纳",
+        "公司算力订单增近350%",
+        "创新药出海破千亿",
+        "HBM供需缺口拉大",
+        "油运超级周期大爆发"
+      ],
+      "training_centroid_similarity_p05": 0.6454883217811584,
+      "training_centroid_similarity_median": 0.7329210042953491
+    },
+    "58": {
+      "leaf_topic_id": 58,
+      "leaf_topic_name": "AI智能体与海外AI巨头",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 57,
+      "qwen_coherence": "高",
+      "review_note": "围绕Meta AI智能体爆火及海外AI软件股爆发。",
+      "source_topic_ids": [
+        59
+      ],
+      "representative_searches": [
+        "Meta股价逆势涨超4%",
+        "Meta消费智能体爆火",
+        "电子工业大米爆单",
+        "AI软件股爆发",
+        "CPU行情",
+        "AI服务器液冷订单火爆",
+        "ABF载板站上风口",
+        "阿里平头哥发布AI芯片"
+      ],
+      "training_centroid_similarity_p05": 0.6510284543037415,
+      "training_centroid_similarity_median": 0.7794244885444641
+    },
+    "59": {
+      "leaf_topic_id": 59,
+      "leaf_topic_name": "长鑫科技与存储芯片",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 8,
+      "qwen_coherence": "高",
+      "review_note": "聚焦长鑫科技新突破及A股存储板块大爆发。",
+      "source_topic_ids": [
+        60
+      ],
+      "representative_searches": [
+        "中国移动高通完成6G验证",
+        "长鑫科技成交额超150亿",
+        "长鑫科技供应链覆盖30家A股公司！哪些核心设备股将成妖？",
+        "长鑫",
+        "688825",
+        "长鑫科技第五代工艺量产",
+        "长鑫科技",
+        "600246"
+      ],
+      "training_centroid_similarity_p05": 0.758359968662262,
+      "training_centroid_similarity_median": 0.8733423948287964
+    },
+    "60": {
+      "leaf_topic_id": 60,
+      "leaf_topic_name": "金风科技与风电动态",
+      "parent_topic_id": 1,
+      "parent_topic_name": "个股动态",
+      "training_examples": 2,
+      "qwen_coherence": "高",
+      "review_note": "围绕金风科技的融资数据、外资持股及绿色甲醇发运。",
+      "source_topic_ids": [
+        61
+      ],
+      "representative_searches": [
+        "金风科技",
+        "金风"
+      ],
+      "training_centroid_similarity_p05": 0.9690036773681641,
+      "training_centroid_similarity_median": 0.9690037369728088
+    },
+    "61": {
+      "leaf_topic_id": 61,
+      "leaf_topic_name": "新股申购与中签号",
+      "parent_topic_id": 18,
+      "parent_topic_name": "新股",
+      "training_examples": 72,
+      "qwen_coherence": "高",
+      "review_note": "提供新股申购提示、中签率及中签号出炉等打新服务。；拆分后归并：与61（新股申购与中签号）高度重合，均聚焦新股打新、中签及上市表现，合并至61。",
+      "source_topic_ids": [
+        62
+      ],
+      "representative_searches": [
+        "力勤资源中签号出炉",
+        "中塑股份上市暴涨683%",
+        "彩虹股份获资金净流入",
+        "A股现大肉签一签赚12万",
+        "高中签率新股来了",
+        "粤芯半导体中签率公布",
+        "301660",
+        "长盛轴承10股派2元"
+      ],
+      "training_centroid_similarity_p05": 0.6760527491569519,
+      "training_centroid_similarity_median": 0.795431911945343
+    },
+    "62": {
+      "leaf_topic_id": 62,
+      "leaf_topic_name": "股东减持与高位套现",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 30,
+      "qwen_coherence": "高",
+      "review_note": "聚焦实控人及大股东减持计划完成与高位套现。",
+      "source_topic_ids": [
+        63
+      ],
+      "representative_searches": [
+        "宇树股价从峰值腰斩",
+        "机构与拉萨天团对垒",
+        "源杰科技股东拟减持股份",
+        "宇树市值跌破2000亿",
+        "减持",
+        "宏和科技",
+        "亿纬锂能转让股权",
+        "科陆电子"
+      ],
+      "training_centroid_similarity_p05": 0.7444901466369629,
+      "training_centroid_similarity_median": 0.8274192810058594
+    },
+    "63": {
+      "leaf_topic_id": 63,
+      "leaf_topic_name": "煤炭板块与高股息资产",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 19,
+      "qwen_coherence": "高",
+      "review_note": "围绕煤炭股逆势走强及高股息资产的配置价值。",
+      "source_topic_ids": [
+        65
+      ],
+      "representative_searches": [
+        "煤炭股走强！业绩高增有哪些公司？",
+        "摩根大通看好宁德时代",
+        "主力资金抢筹煤炭板块",
+        "煤炭股逆势走强",
+        "永泰能源召开业绩说明会",
+        "煤炭股不跌反涨",
+        "首批煤电REITs来了",
+        "煤钢行业会议召开"
+      ],
+      "training_centroid_similarity_p05": 0.6764520406723022,
+      "training_centroid_similarity_median": 0.8219488859176636
+    },
+    "64": {
+      "leaf_topic_id": 64,
+      "leaf_topic_name": "股权变动与增持收购",
+      "parent_topic_id": 6,
+      "parent_topic_name": "公司要闻",
+      "training_examples": 38,
+      "qwen_coherence": "高",
+      "review_note": "聚焦大股东增持、子公司股权收购及控股股权变动。",
+      "source_topic_ids": [
+        66
+      ],
+      "representative_searches": [
+        "恩捷股份拟收购子公司股权",
+        "通鼎互联收购机电股权",
+        "赛力斯",
+        "海能达股东质押持股",
+        "麦格米特收购深圳焊接股权",
+        "恩捷股份接盘湖北恩捷股权",
+        "黄仁勋出售英伟达股票",
+        "赛力斯大股东增持股份"
+      ],
+      "training_centroid_similarity_p05": 0.707388699054718,
+      "training_centroid_similarity_median": 0.8157641887664795
+    },
+    "65": {
+      "leaf_topic_id": 65,
+      "leaf_topic_name": "玻璃基板与先进封装",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 24,
+      "qwen_coherence": "高",
+      "review_note": "围绕英伟达加码玻璃基板及产业链量产攻关。",
+      "source_topic_ids": [
+        67
+      ],
+      "representative_searches": [
+        "巨头宣布玻璃基板涨价",
+        "京东方五年砸800亿采购，玻璃基板要成下一个PCB？",
+        "AI算力倒逼封装材料升级",
+        "英伟达催单玻璃基板量产",
+        "英伟达加码玻璃基板攻关",
+        "英伟达评估导入玻璃基板",
+        "折叠屏手机推新带热FPC",
+        "中国智能眼镜市场分化"
+      ],
+      "training_centroid_similarity_p05": 0.6584351062774658,
+      "training_centroid_similarity_median": 0.8272176384925842
+    },
+    "66": {
+      "leaf_topic_id": 66,
+      "leaf_topic_name": "AI影视与院线电影",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 6,
+      "qwen_coherence": "高",
+      "review_note": "聚焦国内首部AI院线电影定档及传媒概念股。",
+      "source_topic_ids": [
+        68
+      ],
+      "representative_searches": [
+        "国内首部AI电影定档",
+        "AI院线电影正式定档",
+        "三星堆电影全国上映",
+        "博纳",
+        "博纳影业",
+        "中国电影"
+      ],
+      "training_centroid_similarity_p05": 0.8420237898826599,
+      "training_centroid_similarity_median": 0.9436372518539429
+    },
+    "67": {
+      "leaf_topic_id": 67,
+      "leaf_topic_name": "房地产板块与万科",
+      "parent_topic_id": 21,
+      "parent_topic_name": "概念板块",
+      "training_examples": 57,
+      "qwen_coherence": "高",
+      "review_note": "围绕万科连板及房地产板块集体爆发的行情分析。",
+      "source_topic_ids": [
+        69
+      ],
+      "representative_searches": [
+        "上交所通报沈鼓集团",
+        "家居板块掀涨停潮",
+        "传媒股密集涨停",
+        "多股发布利好提示风险",
+        "巴菲特加仓住宅建筑商",
+        "众泰汽车涨停",
+        "彩虹股份涨停",
+        "万科连续放量反弹"
+      ],
+      "training_centroid_similarity_p05": 0.6649838089942932,
+      "training_centroid_similarity_median": 0.767135500907898
+    },
+    "69": {
+      "leaf_topic_id": 69,
+      "leaf_topic_name": "AI行业应用与场景落地",
+      "parent_topic_id": 0,
+      "parent_topic_name": "AI与科技概念",
+      "training_examples": 7,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚焦AI技术在金融、交通、消费、教育、北斗及地方产业等具体垂直场景的落地应用与产品发布，属于AI应用层意图。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "每日互动发布交通大模型",
+        "中国平安AI业务加速",
+        "Muse点燃AI投资热情",
+        "AI教育驶入发展快车道",
+        "数字消费进入AI主战场",
+        "广东加速推动AI落地",
+        "海格通信"
+      ],
+      "training_centroid_similarity_p05": 0.740187406539917,
+      "training_centroid_similarity_median": 0.7876676321029663
+    },
+    "70": {
+      "leaf_topic_id": 70,
+      "leaf_topic_name": "冰雪经济概念异动",
+      "parent_topic_id": 23,
+      "parent_topic_name": "消费与旅游概念",
+      "training_examples": 1,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚焦冰雪经济概念板块的短期市场异动与连阳行情，意图明确且独立，保留为单词条主题。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "冰雪经济概念4连阳"
+      ],
+      "training_centroid_similarity_p05": 1.0000001192092896,
+      "training_centroid_similarity_median": 1.0000001192092896
+    },
+    "71": {
+      "leaf_topic_id": 71,
+      "leaf_topic_name": "医药医疗政策与概念异动",
+      "parent_topic_id": 10,
+      "parent_topic_name": "医药医疗概念",
+      "training_examples": 2,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚焦医疗服务价格改革、医保目录制定及医药工业规划等政策落地带来的板块异动与景气预期，归并为医药医疗政策意图。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "医疗服务概念盘中走强",
+        "医药工业规划落地"
+      ],
+      "training_centroid_similarity_p05": 0.9365465641021729,
+      "training_centroid_similarity_median": 0.9365465641021729
+    },
+    "72": {
+      "leaf_topic_id": 72,
+      "leaf_topic_name": "游戏行业景气度",
+      "parent_topic_id": 4,
+      "parent_topic_name": "传媒与游戏概念",
+      "training_examples": 1,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚焦游戏行业流水创新高及AI提效带来的全年高景气度延续预期，意图独立，保留为单词条主题。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "游戏行业有望延续高景气"
+      ],
+      "training_centroid_similarity_p05": 0.9999999403953552,
+      "training_centroid_similarity_median": 0.9999999403953552
+    },
+    "73": {
+      "leaf_topic_id": 73,
+      "leaf_topic_name": "现代物流规划与政策",
+      "parent_topic_id": 3,
+      "parent_topic_name": "交通运输与物流概念",
+      "training_examples": 1,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚焦现代物流专项规划出台及行业目标预期，具有明确的政策与产业意图，保留为单词条主题。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "流云主人"
+      ],
+      "training_centroid_similarity_p05": 1.0,
+      "training_centroid_similarity_median": 1.0
+    },
+    "74": {
+      "leaf_topic_id": 74,
+      "leaf_topic_name": "跨境金融与数字人民币",
+      "parent_topic_id": 14,
+      "parent_topic_name": "大金融概念",
+      "training_examples": 1,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚焦跨境金融多点突破及数字人民币跨境应用加速落地，属于独立的金融科技与跨境支付意图，保留为单词条主题。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "跨境金融多点突破"
+      ],
+      "training_centroid_similarity_p05": 1.0,
+      "training_centroid_similarity_median": 1.0
+    },
+    "76": {
+      "leaf_topic_id": 76,
+      "leaf_topic_name": "半导体产业链动态与交易",
+      "parent_topic_id": 11,
+      "parent_topic_name": "半导体与集成电路",
+      "training_examples": 13,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚合半导体设计、封测、设备、存储等公司的产业进展、股价表现及交易动态，聚焦半导体核心产业链。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "GPU龙头暴涨",
+        "超威半导体股价创新高",
+        "华天科技",
+        "通富微电",
+        "铠侠",
+        "华天",
+        "澜起科技",
+        "半导体板块"
+      ],
+      "training_centroid_similarity_p05": 0.745372474193573,
+      "training_centroid_similarity_median": 0.7947149276733398
+    },
+    "77": {
+      "leaf_topic_id": 77,
+      "leaf_topic_name": "PCB、覆铜板及电子材料",
+      "parent_topic_id": 25,
+      "parent_topic_name": "电子材料与PCB",
+      "training_examples": 10,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚合PCB、覆铜板、铜箔及电子化学品等电子基础材料公司的业务与交易，产业属性高度一致。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "逸豪新材拟收购铭丰电子",
+        "国瓷材料",
+        "澳弘电子",
+        "依顿电子",
+        "嘉立创",
+        "生益",
+        "中京电子",
+        "600183"
+      ],
+      "training_centroid_similarity_p05": 0.7545551061630249,
+      "training_centroid_similarity_median": 0.8434045314788818
+    },
+    "78": {
+      "leaf_topic_id": 78,
+      "leaf_topic_name": "机器人、无人机与卫星互联网",
+      "parent_topic_id": 20,
+      "parent_topic_name": "机器人与商业航天",
+      "training_examples": 6,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚合机器人（灵巧手、无人环卫、轴承）、卫星互联网及商业航天等智能装备产业，意图明确。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "宇树科技发布灵巧手",
+        "洛轴股份拟投建轴承项目",
+        "宇树",
+        "中国卫星",
+        "福龙马",
+        "襄阳轴承"
+      ],
+      "training_centroid_similarity_p05": 0.7469254732131958,
+      "training_centroid_similarity_median": 0.8237370252609253
+    },
+    "79": {
+      "leaf_topic_id": 79,
+      "leaf_topic_name": "融资融券、大宗交易与资金流向",
+      "parent_topic_id": 28,
+      "parent_topic_name": "资金流向与交易",
+      "training_examples": 15,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "将分散在各行业的融资融券余额变化、大宗交易、北向/南向资金净买入及ETF资金流向统一聚合，解决交易意图碎片化问题。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "隆基绿能发生大宗交易",
+        "平潭发展",
+        "北向资金净买入",
+        "腾讯控股获大举净买入",
+        "思源电气",
+        "中钨高新",
+        "513330",
+        "烽火通信"
+      ],
+      "training_centroid_similarity_p05": 0.7624467015266418,
+      "training_centroid_similarity_median": 0.8053381443023682
+    },
+    "80": {
+      "leaf_topic_id": 80,
+      "leaf_topic_name": "定增募资、并购重组与项目投资",
+      "parent_topic_id": 8,
+      "parent_topic_name": "公司资本运作",
+      "training_examples": 6,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚合公司的定增募资、资产收购、设立子公司及产业基金投资等资本运作事件，与日常经营和交易区分。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "江钨装备拟定增募资",
+        "完美世界",
+        "利通电子",
+        "通鼎互联",
+        "江钨装备",
+        "002443"
+      ],
+      "training_centroid_similarity_p05": 0.7336885929107666,
+      "training_centroid_similarity_median": 0.8027955293655396
+    },
+    "81": {
+      "leaf_topic_id": 81,
+      "leaf_topic_name": "算力基础设施与通信设备",
+      "parent_topic_id": 26,
+      "parent_topic_name": "算力与通信",
+      "training_examples": 11,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚合光模块、算力租赁、通信设备及AI软件应用等算力基础设施，聚焦AI算力产业链。；拆分后归并：与81（算力基础设施与通信设备）语义高度重合，均聚焦算力硬件、光模块等底层基础设施，合并至81以避免冗余。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "中际旭创量能缩水8成",
+        "易中天半年报亮眼",
+        "AI驱动网仪需求增",
+        "AI驱动网仪需求涨",
+        "600522",
+        "603636",
+        "h",
+        "吉视传媒"
+      ],
+      "training_centroid_similarity_p05": 0.6474701166152954,
+      "training_centroid_similarity_median": 0.7247858047485352
+    },
+    "82": {
+      "leaf_topic_id": 82,
+      "leaf_topic_name": "风电、光伏与电力设备",
+      "parent_topic_id": 19,
+      "parent_topic_name": "新能源与电力设备",
+      "training_examples": 2,
+      "qwen_coherence": "Qwen细分",
+      "review_note": "聚合风电、光伏及电力设备等新能源产业链公司的业务动态。虽样本较少，但产业意图明确且独立，予以保留。",
+      "source_topic_ids": [],
+      "representative_searches": [
+        "601218",
+        "天顺风能"
+      ],
+      "training_centroid_similarity_p05": 0.8528944253921509,
+      "training_centroid_similarity_median": 0.8528944849967957
+    },
+    "84": {
+      "leaf_topic_id": 84,
+      "leaf_topic_name": "公司诉讼、违约与法律纠纷",
+      "parent_topic_id": 9,
+      "parent_topic_name": "公司风险与法律纠纷",
+      "training_examples": 3,
+      "qwen_coherence": "Qwen递归细分",
+      "review_note": "搜索词和标题均指向公司涉及的违约、仲裁、被执行或遭起诉等法律纠纷事件，意图明确聚焦于公司面临的法律与合规风险。",
+      "source_topic_ids": [
+        20
+      ],
+      "representative_searches": [
+        "洛阳钼业被指违约",
+        "国晟科技",
+        "600519"
+      ],
+      "training_centroid_similarity_p05": 0.8464412093162537,
+      "training_centroid_similarity_median": 0.861159086227417
+    },
+    "87": {
+      "leaf_topic_id": 87,
+      "leaf_topic_name": "公司二级市场表现与综合动态",
+      "parent_topic_id": 5,
+      "parent_topic_name": "公司日常经营与行情",
+      "training_examples": 2,
+      "qwen_coherence": "Qwen递归细分",
+      "review_note": "涉及公司在二级市场的开盘表现、成分股涨跌以及日常财务理财动态，属于非重大事件的公司日常综合动态与行情关注。",
+      "source_topic_ids": [
+        20
+      ],
+      "representative_searches": [
+        "联想",
+        "600309"
+      ],
+      "training_centroid_similarity_p05": 0.8911267518997192,
+      "training_centroid_similarity_median": 0.8911267518997192
+    },
+    "88": {
+      "leaf_topic_id": 88,
+      "leaf_topic_name": "宏观指标与地缘政治情绪",
+      "parent_topic_id": 15,
+      "parent_topic_name": "宏观指标与市场情绪",
+      "training_examples": 1,
+      "qwen_coherence": "Qwen递归细分",
+      "review_note": "搜索词和标题指向特定的宏观与地缘政治情绪指标，属于宏观市场情绪范畴，与公司微观事件有本质区别，单独成类。",
+      "source_topic_ids": [
+        20
+      ],
+      "representative_searches": [
+        "五角大楼披萨指数飙升"
+      ],
+      "training_centroid_similarity_p05": 1.0000003576278687,
+      "training_centroid_similarity_median": 1.0000003576278687
+    }
+  }
+}
