@@ -17,7 +17,7 @@ def ai_generate_node(
 ) -> AiGenerateOutput:
     """
     title: AI生词
-    desc: 对无法归入现有类目的新型资讯，由AI基于内容发散生成推荐出词
+    desc: 对无法归入现有类目的新型资讯，由AI基于内容发散生成3–5个推荐词及对应query，合格方向不足时允许少出
     integrations: 大语言模型
     """
     ctx = runtime.context

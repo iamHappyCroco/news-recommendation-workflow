@@ -80,6 +80,7 @@
 
 ## 节点实现
 - A 象限生词目标数量为 3–5 个（2026-11-09）；合格延伸不足时允许少出或不出，仍按优先级排序。
+- 未归类 AI 生词目标数量为 3–5 个；不足 3 个合格延伸方向时允许少出，仍要求每个词配一条同词同序的完整 query。目标数量由提示词控制，现有空结果及跑批校验规则继续适用。
 - LLM 运行约定（2026-11-09）：所有 LLM 节点统一使用东财接口，凭据为 `EM_API_KEY`，地址默认 `https://dd-ai-api.eastmoney.com/coding/v1`（可通过 `EM_API_BASE_URL` 配置），全局模型覆盖为 `EM_MODEL`。本地 Qwen 权重、加载／推理代码和运行模式切换已移除；离线测试通过 mock HTTP 或节点函数实现，不提供生产 mock 分支。`.models/minilm`、Torch 和 Transformers 是本地分类依赖，继续保留。
 - topic_recall / hot_theme_recall读取本地Excel，并通过 `src/tools/local_retrieval.py` 召回候选
 - 各LLM节点通过 `src/tools/llm_utils.py` 调用真实模型，Coze部署与存储工具不属于当前运行依赖
