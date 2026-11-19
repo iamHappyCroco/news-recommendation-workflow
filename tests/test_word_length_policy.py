@@ -29,7 +29,10 @@ class WordLengthPolicyTests(unittest.TestCase):
             sample = cfg['sp'].split('# 输出格式', 1)[1]
             example, _ = json.JSONDecoder().raw_decode(sample[sample.index('{'):])
             if name in ['topic_word_generate', 'hot_theme_word_generate']:
-                self.assertEqual(set(example), {'word', 'short', 'subject', 'link_type'})
+                expected = {'word', 'short', 'subject', 'article_link'}
+                if name == 'hot_theme_word_generate':
+                    expected.add('candidates')
+                self.assertEqual(set(example), expected)
             else:
                 self.assertEqual(set(example), {'recommended_words', 'short_words', 'ai_queries'})
 
@@ -76,7 +79,7 @@ class WordLengthPolicyTests(unittest.TestCase):
 
     def test_subject_is_internal_and_absent_from_jump_result(self):
         payload = {'word': '英伟达财报超预期', 'subject': '英伟达',
-                   'short': '英伟达财报超预期', 'link_type': '结合'}
+                   'short': '英伟达财报超预期', 'article_link': '资讯和目标页面都涉及英伟达财报'}
         with patch('graphs.nodes.topic_word_generate_node.invoke_llm', return_value=json.dumps(payload)):
             result = topic_word_generate_node(
                 TopicWordGenerateInput(title='英伟达', content='正文', fit_topic_title='财报专题'),
@@ -85,6 +88,7 @@ class WordLengthPolicyTests(unittest.TestCase):
         self.assertNotIn('best_word_subject', result)
         self.assertNotIn('subject', result)
         self.assertNotIn('link_type', result)
+        self.assertNotIn('article_link', result)
         self.assertEqual(result['short'], payload['short'])
 
     def test_spaces_letters_and_digits_count_toward_boundaries(self):
@@ -137,7 +141,7 @@ class WordLengthPolicyTests(unittest.TestCase):
                 self.assertIn('上次输出不合规', calls[1]['repair_note'])
 
     def test_both_jump_branches_repair_old_three_word_output(self):
-        valid = {'word': '算力需求验证', 'short': '算力需求验证', 'subject': '算力', 'link_type': '主线'}
+        valid = {'word': '算力需求验证', 'short': '算力需求验证', 'subject': '算力', 'article_link': '资讯讲算力扩张，页面提供需求验证维度'}
         runtime = SimpleNamespace(context=Context())
         for name, node, state, key in [
             ('topic_word_generate', topic_word_generate_node,

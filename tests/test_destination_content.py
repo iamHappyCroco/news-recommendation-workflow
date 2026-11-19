@@ -22,7 +22,7 @@ from tools.runtime import Context
 
 RUNTIME = SimpleNamespace(context=Context())
 WORDS = ["routes"]
-OUTPUT = json.dumps({"word": "routes", "short": "routes", "subject": "routes", "link_type": "主线"})
+OUTPUT = json.dumps({"word": "routes", "short": "routes", "subject": "routes", "article_link": "The article introduces robots; the destination compares robot technology routes."})
 
 
 def config(name):

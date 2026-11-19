@@ -1,4 +1,5 @@
 """热点题材生词节点：命中后仅生成1个首选词及短版。"""
+import logging
 from typing import Any
 
 from langchain_core.runnables import RunnableConfig
@@ -44,7 +45,9 @@ def hot_theme_word_generate_node(
         except ValueError as exc:
             if attempt:
                 raise
-            render_vars["repair_note"] = f"上次输出不合规：{exc}。请重新输出word、short、subject、link_type四字段JSON；word最多12字，short最多9字且保留主体和意图核，word不超过9字时short使用原词，空格计1字。无合格词时四字段均为空字符串。"
+            render_vars["repair_note"] = f"上次输出不合规：{exc}。请按系统格式输出article_link、candidates、word、short、subject五字段JSON；article_link说明资讯与页面的结合点。candidates包含2-3个不同构词类型的候选，默认名词短语、问句最多1个，不以禁止词结尾。word最多12字，short最多9字且保留主体和意图核，word不超过9字时short使用原词，空格计1字。页面承接与资讯关联必须同时满足，无合格词时candidates为空数组，其余字段均为空字符串。"
+
+    logging.getLogger(__name__).debug("热点跳转结合点：%s", data["article_link"])
 
     hot_theme_hit: dict = {
         "word_source": "hot_theme",

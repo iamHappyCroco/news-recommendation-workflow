@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from batch_run import _run_one, _validate_final_summary, prepare_article_input, warmup
+from batch_run import ResumableArticleRun, _validate_final_summary, prepare_article_input, warmup
 from tools.word_extras import SHORT_SUBJECT_POLICY_VERSION
 
 
@@ -78,9 +78,10 @@ async def main() -> None:
             }
             started = time.perf_counter()
             last_error = ""
+            article_run = ResumableArticleRun(payload)
             for attempt in range(1, args.attempts + 1):
                 try:
-                    result = await _run_one(payload, retry_feedback=last_error)
+                    result = await article_run.run(retry_feedback=last_error)
                     final = result["final_summary"]
                     if not final:
                         raise ValueError("Empty final_summary")

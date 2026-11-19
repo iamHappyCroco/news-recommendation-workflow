@@ -19,17 +19,17 @@ from tools.word_extras import validate_jump_word
 from batch_run import _summary_row, _old_final_summary, _validate_final_summary
 
 RUNTIME = SimpleNamespace(context=Context())
-VALID = {'word': 'A股三季报盈利全景', 'short': 'A股三季报盈利全景', 'subject': 'A股', 'link_type': '主线'}
+VALID = {'word': 'A股三季报盈利全景', 'short': 'A股三季报盈利全景', 'subject': 'A股', 'article_link': '资讯讲A股三季报，专题提供全市场盈利全景'}
 EMPTY = {key: '' for key in VALID}
 
 class JumpSingleWordTests(unittest.TestCase):
     def test_nine_character_shorts_keep_parallel_subjects_and_allow_ten_character_words(self):
-        parallel = {'word': '华为 小米智驾方案对比', 'short': '华为 小米智驾对比', 'subject': '华为 小米', 'link_type': '结合'}
+        parallel = {'word': '华为 小米智驾方案对比', 'short': '华为 小米智驾对比', 'subject': '华为 小米', 'article_link': '资讯介绍两家智驾方案，页面提供两家路线比较'}
         self.assertEqual(len(parallel['short']), 9)
         self.assertEqual(validate_jump_word(parallel, require_metadata=True), (parallel['word'], parallel['short']))
         with self.assertRaises(ValueError):
             validate_jump_word({**parallel, 'short': '小米 华为智驾对比'}, require_metadata=True)
-        ten = {'word': '算力硬件题材驱动逻辑', 'short': '算力硬件驱动逻辑', 'subject': '算力硬件', 'link_type': '主线'}
+        ten = {'word': '算力硬件题材驱动逻辑', 'short': '算力硬件驱动逻辑', 'subject': '算力硬件', 'article_link': '资讯讲算力扩张，题材页说明硬件需求驱动逻辑'}
         self.assertEqual(len(ten['word']), 10)
         self.assertEqual(validate_jump_word(ten, require_metadata=True), (ten['word'], ten['short']))
         with self.assertRaises(ValueError):
@@ -53,14 +53,32 @@ class JumpSingleWordTests(unittest.TestCase):
             {**VALID, 'word': '一'*13},
             {**VALID, 'short': '一'*11},
             {**VALID, 'subject': 'AMD'},
-            {**VALID, 'link_type': '其他'},
+            {**VALID, 'article_link': None},
+            {**VALID, 'article_link': '   '},
+            {**VALID, 'article_link': ''},
+            {key: value for key, value in VALID.items() if key != 'article_link'},
             {**EMPTY, 'subject': 'A股'},
+            {**EMPTY, 'article_link': '资讯与页面有关联'},
             {'recommended_words': [VALID['word']], 'best_word_short': VALID['short']},
         ]:
             with self.subTest(invalid=invalid), self.assertRaises(ValueError):
                 validate_jump_word(invalid, require_metadata=True)
         self.assertEqual(validate_jump_word(VALID, require_metadata=True), (VALID['word'], VALID['short']))
         self.assertEqual(validate_jump_word(EMPTY, require_metadata=True), ('', ''))
+
+    def test_missing_article_link_repairs_only_generation_and_keeps_metadata_internal(self):
+        for name, node, state, key in [
+            ('topic_word_generate', topic_word_generate_node, TopicWordGenerateInput(title='news', content='body', fit_topic_title='topic'), 'topic_hit_result'),
+            ('hot_theme_word_generate', hot_theme_word_generate_node, HotThemeWordGenerateInput(title='news', content='body', fit_hot_theme_name='theme'), 'hot_theme_hit_result'),
+        ]:
+            incomplete = {key: value for key, value in VALID.items() if key != 'article_link'}
+            with self.subTest(name=name), patch(f'graphs.nodes.{name}_node.invoke_llm', side_effect=[json.dumps(incomplete), json.dumps(VALID)]) as llm:
+                output = node(state, {'metadata': {'llm_cfg': f'config/{name}_llm_cfg.json'}}, RUNTIME)
+                self.assertEqual(llm.call_count, 2)
+                self.assertIn('article_link', llm.call_args_list[1].args[2]['repair_note'])
+                self.assertNotIn('link_type', llm.call_args_list[1].args[2]['repair_note'])
+                self.assertEqual(getattr(output, key)['word'], VALID['word'])
+                self.assertNotIn('article_link', getattr(output, key))
 
     def test_priority_only_chooses_directions_with_available_words(self):
         for topic_word, theme_word, expected in [('', '', 'none'), (VALID['word'], '', 'topic'), ('', '算力硬件驱动逻辑', 'hot_theme')]:
@@ -101,7 +119,7 @@ class JumpSingleWordTests(unittest.TestCase):
         base = {'topic_related': {'matched': True, 'word': '', 'short': ''},
                 'hot_theme_related': {'matched': False, 'word': '', 'short': ''}, 'category_quadrant': category}
         _validate_final_summary(base)
-        for extra in ({'recommended_words': []}, {'best_word_short': ''}, {'subject': ''}, {'link_type': ''}):
+        for extra in ({'recommended_words': []}, {'best_word_short': ''}, {'subject': ''}, {'article_link': ''}, {'link_type': ''}, {'candidates': []}):
             invalid = {**base, 'topic_related': {**base['topic_related'], **extra}}
             with self.subTest(extra=extra), self.assertRaises(ValueError):
                 _validate_final_summary(invalid)

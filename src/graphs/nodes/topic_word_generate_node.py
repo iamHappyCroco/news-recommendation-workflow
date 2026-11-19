@@ -1,4 +1,5 @@
 """专题生词：以目标页面内容或导语为核心，提供超出原资讯的延伸阅读。"""
+import logging
 from typing import Any
 
 from langchain_core.runnables import RunnableConfig
@@ -43,7 +44,9 @@ def topic_word_generate_node(
         except ValueError as exc:
             if attempt:
                 raise
-            render_vars["repair_note"] = f"上次输出不合规：{exc}。请重新输出word、short、subject、link_type四字段JSON；word最多12字，short最多9字且保留主体和意图核，word不超过9字时short使用原词，空格计1字。无合格词时四字段均为空字符串。"
+            render_vars["repair_note"] = f"上次输出不合规：{exc}。请重新输出word、short、subject、article_link四字段JSON；article_link用一句话说明资讯与页面的结合点。word最多12字，short最多9字且保留主体和意图核，word不超过9字时short使用原词，空格计1字。页面承接与资讯关联必须同时满足，无合格词时四字段均为空字符串。"
+
+    logging.getLogger(__name__).debug("专题跳转结合点：%s", data["article_link"])
 
     # 额外输出的专题生词结果：专题适配时会保留这份结果，且流程仍继续进入模型分类->象限生词
     topic_hit: dict = {

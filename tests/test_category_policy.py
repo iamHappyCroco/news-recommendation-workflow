@@ -312,7 +312,7 @@ class CategoryPolicyTests(unittest.TestCase):
             anchor = values.get("sub_category") or "extra"
             words = ([f"{anchor}词{i}" for i in range(3)] if name.startswith("quadrant_") else ["extra-new"])
             if name in {"topic_word_generate_llm_cfg.json", "hot_theme_word_generate_llm_cfg.json"}:
-                return json.dumps({"word": words[0], "short": words[0], "subject": anchor, "link_type": "主线"})
+                return json.dumps({"word": words[0], "short": words[0], "subject": anchor, "article_link": "The article and destination share the same subject."})
             return json.dumps({"recommended_words": words,
                                "ai_queries": [{"word": w, "query": f"What changed for {anchor}?", "query_summary": w + "验证要点"} for w in words],
                                **({"short_words": [{"word": w, "short": w, "subject": anchor} for w in words]} if name.startswith("quadrant_") else {"best_word_short": words[0], "best_word_subject": anchor})})

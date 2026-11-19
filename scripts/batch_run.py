@@ -14,6 +14,7 @@ from typing import Any
 
 import pandas as pd
 from dotenv import load_dotenv
+from langgraph.checkpoint.memory import InMemorySaver
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -51,6 +52,51 @@ async def _run_one(payload: dict[str, Any], *, retry_feedback: str = "") -> dict
     with generation_retry_feedback(retry_feedback):
         async for event in main_graph.astream(graph_payload, context=Context(), stream_mode="updates"):
             updates.update(event)
+    return _result_from_updates(updates)
+
+
+class ResumableGraphRun:
+    """Resume failed graph tasks using checkpoints owned by one article."""
+
+    def __init__(self, graph, payload: dict[str, Any]):
+        self.graph = graph.builder.compile(checkpointer=InMemorySaver())
+        self.payload = dict(payload)
+        self.config = {"configurable": {"thread_id": "article"}}
+        self.updates: dict[str, Any] = {}
+        self.started = False
+        self.completed = False
+        self.pending_nodes: tuple[str, ...] = ()
+
+    async def run(self, *, retry_feedback: str = "") -> dict[str, Any]:
+        if self.completed:
+            return self.updates
+        graph_input = None if self.started else self.payload
+        self.started = True
+        try:
+            with generation_retry_feedback(retry_feedback):
+                async for event in self.graph.astream(
+                    graph_input, config=self.config, context=Context(), stream_mode="updates",
+                ):
+                    self.updates.update(event)
+        except Exception:
+            snapshot = await self.graph.aget_state(self.config)
+            self.pending_nodes = snapshot.next
+            raise
+        self.pending_nodes = ()
+        self.completed = True
+        return self.updates
+
+
+class ResumableArticleRun(ResumableGraphRun):
+    def __init__(self, payload: dict[str, Any]):
+        prepared = prepare_article_input(payload["title"], payload["content"], payload.get("page_contents"))
+        super().__init__(main_graph, prepared)
+
+    async def run(self, *, retry_feedback: str = "") -> dict[str, Any]:
+        return _result_from_updates(await super().run(retry_feedback=retry_feedback))
+
+
+def _result_from_updates(updates: dict[str, Any]) -> dict[str, Any]:
     model = updates.get("category_model_classify", {}) or {}
     final_node = updates.get("final_summary", {}) or {}
     final_summary = final_node.get("final_summary", {}) or {}
@@ -219,8 +265,8 @@ def _validate_final_summary(final: dict[str, Any]) -> None:
     for field in ("topic_related", "hot_theme_related"):
         result = final.get(field, {})
         validate_jump_word(result)
-        if any(key in result for key in ("subject", "link_type")):
-            raise ValueError("跳转主体和结合类型仅供内部校验，不进入最终输出")
+        if any(key in result for key in ("subject", "link_type", "article_link", "candidates")):
+            raise ValueError("跳转主体和结合点仅供内部校验，不进入最终输出")
         if not result.get("matched") and result["word"]:
             raise ValueError("未命中的跳转方向不能输出推荐词")
     _validate_generation_output(final.get("category_quadrant", {}))
@@ -332,9 +378,10 @@ async def _run_csv_only(args: argparse.Namespace) -> None:
             payload = prepare_article_input(source["资讯标题"], source["资讯正文"])
             started = time.perf_counter()
             last_error = ""
+            article_run = ResumableArticleRun(payload)
             for attempt in range(1, args.attempts + 1):
                 try:
-                    result = await _run_one(payload, retry_feedback=last_error)
+                    result = await article_run.run(retry_feedback=last_error)
                     final = result.get("final_summary", {})
                     _validate_final_summary(final)
                     result["elapsed_seconds"] = round(time.perf_counter() - started, 3)
@@ -551,10 +598,12 @@ async def _run_policy_refresh(args: argparse.Namespace) -> None:
         async with semaphore:
             started = time.perf_counter()
             last_error = ""
+            article_run = ResumableArticleRun(payload)
+            partial_run = None
             for attempt in range(1, args.attempts + 1):
                 try:
                     if force_full or old.get("运行状态") != "成功":
-                        result = await _run_one(payload, retry_feedback=last_error)
+                        result = await article_run.run(retry_feedback=last_error)
                     else:
                         topic, theme = prior["topic_related"], prior["hot_theme_related"]
                         seed = {
@@ -565,9 +614,10 @@ async def _run_policy_refresh(args: argparse.Namespace) -> None:
                             "hot_theme_hit_result": theme, "out_priority": prior["out_priority"],
                             "out_priority_reason": prior["out_priority_reason"],
                         }
-                        with generation_retry_feedback(last_error):
-                            output = await category_graph.ainvoke(seed, context=Context())
-                        final = _jsonable(output["final_summary"])
+                        if partial_run is None:
+                            partial_run = ResumableGraphRun(category_graph, seed)
+                        updates = await partial_run.run(retry_feedback=last_error)
+                        final = _jsonable(updates["final_summary"]["final_summary"])
                         # Keep prior extra outputs byte-for-byte at the business-field level.
                         final.update(topic_related=topic, hot_theme_related=theme,
                                      out_priority=prior["out_priority"], out_priority_reason=prior["out_priority_reason"])

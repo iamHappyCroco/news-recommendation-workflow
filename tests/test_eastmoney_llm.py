@@ -101,7 +101,7 @@ class EastmoneyLLMTests(TestCase):
         word = '算力需求验证'
         for name, state, temperature, tokens in cases:
             jump = name in {'topic_word_generate', 'hot_theme_word_generate'}
-            data = {'word': word, 'short': word, 'subject': '算力', 'link_type': '主线'} if jump else {
+            data = {'word': word, 'short': word, 'subject': '算力', 'article_link': '资讯讲算力扩张，页面提供需求验证维度'} if jump else {
                 'recommended_words': [word], 'short_words': [{'word': word, 'short': word, 'subject': '算力'}],
                 'ai_queries': [{'word': word, 'query': '如何验证算力需求？', 'query_summary': '算力需求验证方法'}]}
             responses = []

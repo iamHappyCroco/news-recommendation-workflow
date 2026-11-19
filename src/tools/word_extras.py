@@ -2,7 +2,7 @@
 
 from typing import Any
 
-SHORT_SUBJECT_POLICY_VERSION = "2026-11-19-short9-parallel-v5"
+SHORT_SUBJECT_POLICY_VERSION = "2026-11-19-jump-v2.2-v6"
 
 
 def validate_jump_word(data: Any, *, require_metadata: bool = False) -> tuple[str, str]:
@@ -13,15 +13,16 @@ def validate_jump_word(data: Any, *, require_metadata: bool = False) -> tuple[st
     if not isinstance(word, str) or not isinstance(short, str):
         raise ValueError("跳转word和short必须是字符串")
     if not word:
-        if short or (require_metadata and any(data.get(key) != "" for key in ("subject", "link_type"))):
-            raise ValueError("无合格跳转词时word、short、subject和link_type均为空字符串")
+        if short or (require_metadata and any(data.get(key) != "" for key in ("subject", "article_link"))):
+            raise ValueError("无合格跳转词时word、short、subject和article_link均为空字符串")
         return word, short
     validate_words([word], maximum=1)
     values = {"best_word_short": short, "best_word_subject": data.get("subject")}
     if require_metadata:
         generated_best_word_short(values, [word])
-        if data.get("link_type") not in {"结合", "主线"}:
-            raise ValueError("link_type必须为结合或主线")
+        article_link = data.get("article_link")
+        if not isinstance(article_link, str) or not article_link.strip():
+            raise ValueError("article_link必须用非空字符串说明原资讯与目标页面的结合点")
     else:
         best_word_short(values, [word])
     if len(word) <= 9 and short != word:
