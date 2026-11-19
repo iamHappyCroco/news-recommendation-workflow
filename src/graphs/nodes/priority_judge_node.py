@@ -1,7 +1,6 @@
 """优先出词判断节点：当专题与热点题材均命中时，由 LLM 判断应优先出跳转专题词还是跳转热点词，并给出理由。"""
 
-import os
-from typing import Any, List
+from typing import Any
 
 from langchain_core.runnables import RunnableConfig
 from langgraph.runtime import Runtime
@@ -23,36 +22,29 @@ def priority_judge_node(
     """
     ctx = runtime.context
 
-    if not state.has_fit_topic and not state.has_fit_hot_theme:
+    t_hit: dict = state.topic_hit_result or {}
+    h_hit: dict = state.hot_theme_hit_result or {}
+    has_topic_word = state.has_fit_topic and bool(t_hit.get("word"))
+    has_theme_word = state.has_fit_hot_theme and bool(h_hit.get("word"))
+    if not has_topic_word and not has_theme_word:
         return PriorityDecisionOutput(
             out_priority="none",
-            out_priority_reason="专题与热点均未命中，无需优先判断",
+            out_priority_reason="专题与热点均无可用跳转词，无需优先判断",
         )
 
-    if state.has_fit_topic and not state.has_fit_hot_theme:
+    if has_topic_word and not has_theme_word:
         return PriorityDecisionOutput(
             out_priority="topic",
-            out_priority_reason="仅命中专题，优先输出专题相关跳转词",
+            out_priority_reason="仅专题有可用跳转词，优先输出专题相关跳转词",
         )
 
-    if not state.has_fit_topic and state.has_fit_hot_theme:
+    if not has_topic_word and has_theme_word:
         return PriorityDecisionOutput(
             out_priority="hot_theme",
-            out_priority_reason="仅命中热点题材，优先输出热点题材相关跳转词",
+            out_priority_reason="仅热点题材有可用跳转词，优先输出热点题材相关跳转词",
         )
 
     # 专题与热点均命中：交由 LLM 判断
-    topic_words: List[str] = []
-    t_hit: dict = state.topic_hit_result or {}
-    tw = t_hit.get("recommended_words")
-    if isinstance(tw, list):
-        topic_words = [str(w).strip() for w in tw if str(w).strip()]
-
-    hot_theme_words: List[str] = []
-    h_hit: dict = state.hot_theme_hit_result or {}
-    hw = h_hit.get("recommended_words")
-    if isinstance(hw, list):
-        hot_theme_words = [str(w).strip() for w in hw if str(w).strip()]
 
     cfg_path = ensure_workspace_path(config["metadata"]["llm_cfg"])
     raw: Any = invoke_llm(
@@ -62,9 +54,9 @@ def priority_judge_node(
             "title": state.title,
             "content": state.content,
             "fit_topic_title": state.fit_topic_title,
-            "topic_words": "、".join(topic_words),
+            "topic_words": t_hit["word"],
             "fit_hot_theme_name": state.fit_hot_theme_name,
-            "hot_theme_words": "、".join(hot_theme_words),
+            "hot_theme_words": h_hit["word"],
         },
     )
     data: Any = extract_json(raw) or {}

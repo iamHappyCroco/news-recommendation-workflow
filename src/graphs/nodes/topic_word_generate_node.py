@@ -1,5 +1,5 @@
 """专题生词：以目标页面内容或导语为核心，提供超出原资讯的延伸阅读。"""
-from typing import Any, List
+from typing import Any
 
 from langchain_core.runnables import RunnableConfig
 from langgraph.runtime import Runtime
@@ -7,7 +7,7 @@ from tools.runtime import Context
 
 from graphs.state import TopicWordGenerateInput, TopicWordGenerateOutput
 from tools.llm_utils import invoke_llm, extract_json, ensure_workspace_path
-from tools.word_extras import display_variants
+from tools.word_extras import validate_jump_word
 
 
 def topic_word_generate_node(
@@ -17,7 +17,7 @@ def topic_word_generate_node(
 ) -> TopicWordGenerateOutput:
     """
     title: 专题相关搜索词生成
-    desc: 命中适配专题后，生成3个候选词并按优先级排序，第1个为首选词
+    desc: 命中适配专题后，仅生成1个首选词及9字以内短版
     integrations: 大语言模型
     """
     ctx = runtime.context
@@ -35,32 +35,26 @@ def topic_word_generate_node(
         "repair_note": "",
     }
     for attempt in range(2):
+        render_vars["_temperature_offset"] = 0.2 if attempt else 0.0
         data: Any = extract_json(invoke_llm(ctx, cfg_path, render_vars)) or {}
-        words: List[str] = list(dict.fromkeys(
-            str(w).strip() for w in (data.get("recommended_words") or []) if str(w).strip()
-        ))[:3]
         try:
-            if len(words) != 3:
-                raise ValueError("专题必须生成 3 个不重复推荐词")
-            variants = display_variants(data, words)
+            word, short = validate_jump_word(data, require_metadata=True)
             break
         except ValueError as exc:
             if attempt:
                 raise
-            render_vars["repair_note"] = f"上次输出不合规：{exc}。请重新输出完整 JSON，并逐字核对展示版。"
+            render_vars["repair_note"] = f"上次输出不合规：{exc}。请重新输出word、short、subject、link_type四字段JSON；word最多12字，short最多9字且保留主体和意图核，word不超过9字时short使用原词，空格计1字。无合格词时四字段均为空字符串。"
 
     # 额外输出的专题生词结果：专题适配时会保留这份结果，且流程仍继续进入模型分类->象限生词
     topic_hit: dict = {
         "word_source": "topic",
         "fit_topic_title": state.fit_topic_title,
         "fit_topic_url": state.fit_topic_url,
-        "recommended_words": words,
-        "display_variants": variants,
-        "best_word": words[0] if words else "",
+        "word": word,
+        "short": short,
     }
 
     return TopicWordGenerateOutput(
-        recommended_words=words,
         word_source="topic",
         topic_hit_result=topic_hit,
     )

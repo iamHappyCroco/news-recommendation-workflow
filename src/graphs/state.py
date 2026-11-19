@@ -113,6 +113,7 @@ class GlobalState(ClassificationDiagnostics, ClassificationDecision):
     nearby_topics: List[NearbyTopic] = Field(default=[], description="向量最近 Top-K 相邻主题候选")
     recommended_words: List[str] = Field(default=[], description="最终推荐出词")
     ai_queries: List[dict] = Field(default_factory=list, description="分类生词所有分支逐词对应的问答 query，与推荐词同词同序")
+    short_words: List[dict] = Field(default_factory=list, description="每个推荐词对应的9字以内短版，同词同序，保留主体，空格计1字")
     word_source: str = Field(default="", description="分类象限出词来源")
     generation_reason: str = Field(default="", description="分类象限或AI兜底推荐词的整体生成理由")
     has_hot_topic: bool = Field(default=False, description="是否找到相邻高曝光参考主题")
@@ -201,7 +202,6 @@ class TopicWordGenerateInput(BaseModel):
 
 class TopicWordGenerateOutput(BaseModel):
     """专题相关搜索词生成节点输出。"""
-    recommended_words: List[str] = Field(default=[], description="基于专题主题生成的3个候选词，第1个为首选词")
     word_source: str = Field(default="topic", description="出词来源，固定为 topic")
     topic_hit_result: dict = Field(default={}, description="专题搜索词额外输出")
 
@@ -273,6 +273,7 @@ class QuadrantOutput(BaseModel):
     """四象限生词节点输出（四个象限节点复用）。"""
     recommended_words: List[str] = Field(default=[], description="本象限策略生成的推荐出词")
     ai_queries: List[dict] = Field(default_factory=list, description="与推荐词同词同序的完整问答 query")
+    short_words: List[dict] = Field(default_factory=list, description="每个推荐词对应的9字以内短版，同词同序，保留主体，空格计1字")
     word_source: str = Field(default="", description="出词来源")
     generation_reason: str = Field(default="", description="本次推荐词的整体生成理由")
 
@@ -287,6 +288,7 @@ class AiGenerateOutput(BaseModel):
     """AI 生词节点输出。"""
     recommended_words: List[str] = Field(default=[], description="AI 生成的推荐出词")
     ai_queries: List[dict] = Field(default_factory=list, description="与推荐词同词同序的延伸问句")
+    short_words: List[dict] = Field(default_factory=list, description="每个推荐词对应的9字以内短版，同词同序，保留主体，空格计1字")
     word_source: str = Field(default="", description="出词来源，固定为 ai")
     generation_reason: str = Field(default="", description="AI兜底推荐词的整体生成理由")
 
@@ -361,6 +363,7 @@ class FinalSummaryInput(ClassificationDiagnostics, ClassificationDecision):
     word_source: str = Field(default="", description="主口径出词来源")
     recommended_words: List[str] = Field(default=[], description="主口径推荐出词")
     ai_queries: List[dict] = Field(default_factory=list, description="分类生词所有分支逐词对应的问答 query")
+    short_words: List[dict] = Field(default_factory=list, description="每个推荐词对应的9字以内短版，同词同序，保留主体，空格计1字")
     generation_reason: str = Field(default="", description="主口径推荐词的整体生成理由")
     out_priority: str = Field(default="none", description="优先出词判断：topic/hot_theme/none（专题与热点双命中时为 LLM 判定结果）")
     out_priority_reason: str = Field(default="", description="优先出词判断理由")
@@ -426,9 +429,8 @@ class HotThemeWordGenerateInput(BaseModel):
 
 class HotThemeWordGenerateOutput(BaseModel):
     """热点题材相关搜索词生成节点输出。"""
-    recommended_words: List[str] = Field(default=[], description="基于热点题材生成的3个候选词，第1个为首选词")
     word_source: str = Field(default="", description="出词来源，固定为 hot_theme")
-    hot_theme_hit_result: dict = Field(default={}, description="热点题材搜索结果（额外输出，推荐词按优先级排序，不含理由）")
+    hot_theme_hit_result: dict = Field(default={}, description="热点题材单词与短版结果（额外输出，不含内部校验字段）")
 
 
 class HasHotThemeFit(BaseModel):

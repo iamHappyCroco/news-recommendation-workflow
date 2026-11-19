@@ -1,7 +1,21 @@
 # 项目概述
+
+**当前短词规则（2026-11-19，覆盖此前10字上限）**：所有生词分支的word最多12字，short最多9字且不长于word，空格计1字。并列实体统一用一个普通空格分隔，word和short保留同一并列主体片段及比较／关联关系；生成阶段subject原样填写该片段。空格只用于并列实体，不用在其他位置。专题和热点的word不超过9字时short直接使用原词。续跑版本更新为2026-11-19-short9-parallel-v5，旧结果重新生成。
+
+**当前专题／热点跳转输出（2026-11-19，覆盖此前数组约定）**：两条跳转路径仅生成1个首选词，生成阶段使用word、short、subject、link_type；最终topic_related和hot_theme_related仅保留word、short及原有命中和链接字段，不再输出recommended_words或best_word_short。hot_theme_related沿用现有name字段。word最多12字、short最多9字，空格计1字；word不超过9字时short直接使用原词。无合格词时四个生成字段均为空字符串，matched仍表示适配判断，out_priority只在有可用词的方向间选择。subject和link_type用于内部校验，不进入最终输出。续跑版本为2026-11-19-short9-parallel-v5，旧版结果重新生成。分类与AI的逐词四字段列表保持原样。
+
+**当前分类与AI逐词输出（2026-11-19，覆盖此前分离数组约定）**：最终分类A/B/C/D及未归类AI的 `recommended_words` 为按推荐位排序的对象列表，第一项为首选，每项仅包含 `word` 原词、`short` 短版、`query` 完整AI提问、`query_summary` 用户侧提问概述。原词最多12字、短版最多9字（含空格），短版与概述都保留对应原词主体；概述准确表达query提问意图，简洁但不受12／9字限制，不输出答案或新事实。生成过程内部仍使用同词同序short_words和ai_queries数组，query_summary由模型与query一起生成，最终合并且不再输出两数组。最多3词，双分类合计最多3词，保留质量优先及合法D空结果。专题／热点输出使用word和short。续跑版本为2026-11-19-short9-parallel-v5，缺少概述的旧结果重新生成，不伪造概述。
+
+**当前逐词短版与去重输出（2026-11-18，覆盖此前首选短版和best_word约定）**：所有最终输出不再包含重复的 `best_word`，推荐词首项即首选。专题／热点各仅1词，保留 `best_word_short`。分类A/B/C/D及未归类AI为每个推荐词生成短版，统一输出 `short_words=[{"word":"原词","short":"短版"}]`，与recommended_words同词同序；不再输出分类best_word_short。每个短版仍不超过10字（含空格）、保留对应原词主体与意图。模型在每条short_words中生成内部subject用于校验，最终不输出subject。空结果三数组均为空。双分类裁减词数时同步裁减短版与query，总词数仍最多3个。CSV移除重复“专题首选词”“热点首选词”列；分类短版位于分类生词结果JSON中。续跑规则版本为2026-11-18-all-shorts-v2，旧记录缺少逐词短版时重新生成。
+
+**主体短版续跑版本**：当前版本为 `2026-11-18-subject-v1`，CSV 使用“生词规则版本”，JSON 跑批记录使用元数据 `word_policy_version`；不新增 `final_summary` 字段。缺少当前版本标识的旧记录不能续跑复用，需要重新生成。
+
+**短版主体保留（2026-11-18）**：所有分支的 `best_word_short` 必须保留原首选词主体，单独阅读即可明确对象；不以旁边标题、链接或query补全主体。优先保留公司、人物、机构、产品、技术或板块等原有实体，不能仅输出“财报超预期”“CEO遴选标准”等无主体短词。原词有并列主体时保留各主体及比较／关联关系。模型生成内部字段 `best_word_subject` 标出从原词保留到短版的主体，程序检查原词与短版均包含该主体，缺失则重新生成一次；该字段不进入最终JSON／CSV。主体识别仍由模型按语义完成，不能把事件、谓词或泛称当作主体。10字上限（含空格）保持不变。
+
+**当前生词输出规则（2026-11-18，覆盖此前数量和展示版约定）**：专题与热点跳转各仅输出1个最好的首选词；A/B/C/D及未归类AI生词最多3个词，双分类两组合计最多3个（主分类优先，为次分类保留一个名额）。所有推荐词不超过12个字符，首选词短版不超过10个字符且不长于原词。多个名词并列可用普通空格分隔，每个空格计1个字符，汉字、字母、数字、标点同样各计1个字符。短版统一使用 `best_word_short`，替换原6字／9字展示版；只为每组首选词生成短版，保留原主体和延伸意图，不机械截断。首选词已足够简短时可使用原词。分类所有分支继续提供与推荐词同词同序的完整 `ai_queries`，query不受12字限制；空结果短版为 `""`。节点校验数量、长度和短版，不合规时要求模型重新生成一次。CSV改为“专题首选词短版”“热点首选词短版”，分类短版位于“分类生词结果”JSON中。旧结果缺少短版或不符合当前数量／长度限制时不能直接续跑复用，需要重跑。
 - **名称**: 资讯推荐位出词工作流
 - **功能**: 对单条资讯（标题+正文）执行完整生词链路：专题召回→专题判断→**东方财富热点题材必走流程（召回→判断→适合则生成热点题材相关搜索词）**；随后统一交给模型主分类+LLM校验，使用原生 82 个二级主题及其四象限区域(A/B/C/D)，按象限走不同生词策略；低分或模型不可用时先经LLM兜底提议与独立校验，最终无法归类时直接进入AI生词。专题词(topic_hit_result)与热点题材词(hot_theme_hit_result)均为“额外输出”，不阻塞所有资讯走模型分类→象限生词；最终所有生词终点统一汇入 `final_summary` ——输出一份汇总：`topic_related`(专题相关，含专题跳转链接)/`hot_theme_related`(热点题材相关，含热点题材跳转链接)/`category_quadrant`(分类+按象限生词)三部分，各部分给出推荐词与**首选词 `best_word` 及首选理由 `best_word_reason`**，专题与热点另附跳转链接；并在专题与热点均命中时给出**优先出词判断** `out_priority`（topic/hot_theme/none）及理由。
-- **生词节点输出结构（与提示词对齐）**: `recommended_words` 按推荐优先级排列；专题／热点另含 `display_variants`，分类各分支另含 `ai_queries`。所有分支的中间状态也不输出逐词排序理由。
+- **生词节点输出结构（与提示词对齐）**: `recommended_words` 按推荐优先级排列；所有分支均含首选词短版 `best_word_short`，分类各分支另含 `ai_queries`。所有分支的中间状态也不输出逐词排序理由。
 
 **最终输出精简（2026-11-06）**：所有方向的最终结果不输出 `ranking_reasons`、`best_word_reason`、`generation_reason`，覆盖专题／热点命中结果、分类象限／AI 汇总、双归类完整结果及接口顶层。保留按优先级排序的推荐词与首项 `best_word`，专题／热点另含同词同序展示版。生成节点不再解析逐词排序理由；分类判断、LLM兜底和专题／热点优先方向的理由继续输出。新 CSV 和续跑导出不包含已移除的生词理由列及候选 JSON 字段。
 
@@ -24,12 +38,12 @@
 | topic_fit_judge | `nodes/topic_fit_judge_node.py` | agent | 判断资讯是否存在可跳转的适配专题 | - | `config/topic_fit_judge_llm_cfg.json` |
 | topic_block | `nodes/topic_block_judge_node.py` | task | **专题嵌套跳转屏蔽（纯规则，非大模型）**：输入资讯标题命中 `专题清单.xlsx`「文章标题」列对应标题、且适配专题正是该标题所关联专题时，将 has_fit_topic 置 false 屏蔽该专题生词 | has_fit_topic=false（屏蔽）→route_topic_fit（进热点题材流程）；否则→route_topic_fit | - |
 | route_topic_fit | `graph.py` | condition | 专题适配判定路由（所有资讯最终都进模型分类→象限生词；专题适配时额外先输出专题生词） | 命中→topic_word_generate（随后进入热点题材必走流程）；未命中→hot_theme_recall | - |
-| topic_word_generate | `nodes/topic_word_generate_node.py` | agent | 命中专题后，以目标页面主要内容或专题导语为核心生成3个延伸推荐词及6字／9字展示版，原资讯用于识别已知内容，结果写入topic_hit_result | - | `config/topic_word_generate_llm_cfg.json` |
+| topic_word_generate | `nodes/topic_word_generate_node.py` | agent | 命中专题后，以目标页面主要内容或专题导语为核心仅生成1个首选词及10字以内短版，原资讯用于识别已知内容，结果写入topic_hit_result | - | `config/topic_word_generate_llm_cfg.json` |
 | hot_theme_recall | `nodes/hot_theme_recall_node.py` | task | **热点题材必走**：读取 `东方财富热点题材_2026-10-22.xlsx`「题材汇总」表的热点题材+热点释义，通过本地词面检索召回最多5个候选，与专题路径一致；过滤分数低于0.05的项 | - | - |
 | hot_theme_fit_judge | `nodes/hot_theme_fit_judge_node.py` | agent | 判断资讯是否适合跳转到召回的热点题材；仅核心主题高度契合且可承接资讯内容时，返回最适配候选的名称/代码/真实链接；弱相关或无适配候选时不命中 | - | `config/hot_theme_fit_judge_llm_cfg.json` |
 | hot_theme_block | `nodes/hot_theme_block_judge_node.py` | task | **嵌套跳转屏蔽（纯规则，非大模型）**：输入资讯标题命中屏蔽清单 `热点题材_需屏蔽嵌套跳转_2026-10-22.xlsx` 的「资讯标题」列、且适配热点也在其「热点题材」列时，将 has_fit_hot_theme 置 false 屏蔽该热点生词 | has_fit_hot_theme=false（屏蔽）→priority_judge；否则→route_hot_theme_fit | - |
 | route_hot_theme_fit | `graph.py` | condition | 热点题材路由（经 hot_theme_block 屏蔽后判定；无论是否适合/是否被屏蔽，最终都经 priority_judge 进入模型分类） | 适合且未屏蔽→hot_theme_word_generate；不适合或被屏蔽→priority_judge | - |
-| hot_theme_word_generate | `nodes/hot_theme_word_generate_node.py` | agent | 命中热点后，以目标页面主要内容或热点释义为核心生成3个延伸推荐词及6字／9字展示版，原资讯用于识别已知内容，结果写入hot_theme_hit_result | - | `config/hot_theme_word_generate_llm_cfg.json` |
+| hot_theme_word_generate | `nodes/hot_theme_word_generate_node.py` | agent | 命中热点后，以目标页面主要内容或热点释义为核心仅生成1个首选词及10字以内短版，原资讯用于识别已知内容，结果写入hot_theme_hit_result | - | `config/hot_theme_word_generate_llm_cfg.json` |
 | priority_judge | `nodes/priority_judge_node.py` | agent | 优先出词判断：专题与热点均命中时由 LLM 判定优先出专题词还是热点词并给理由，写 out_priority/out_priority_reason；仅命中其一则直接按唯一命中方向输出 | 双命中→LLM；仅专题→topic；仅热点→hot_theme；都未命中→none | `config/priority_llm_cfg.json` |
 | category_model_classify | `nodes/category_model_classify_node.py` | task | 模型主分类：用搜索意图两级分类器（`分类器/` 82 主题 Qwen 修订版，MiniLM 中心向量）对资讯做主分类，产出预测主题/相似度/噪声判定，并输出向量最近 Top-K 相邻主题 `nearby_topics` | - | - |
 | category_llm_fallback | `nodes/category_llm_fallback_node.py` | agent | 模型低分或不可用时，从精简原生82主题目录提出一个分类供独立校验；高分路径不调用兜底LLM | 高分→category_llm_verify；低分/不可用→LLM提议→category_llm_verify | `config/category_fallback_llm_cfg.json` |
@@ -40,7 +54,7 @@
 | quadrant_a | `nodes/quadrant_a_node.py` | agent | A·高曝光高点击类目生词(热点热搜) | - | `config/quadrant_a_llm_cfg.json` |
 | quadrant_b | `nodes/quadrant_b_node.py` | agent | B·高曝光低点击类目生词(驱动点击转化)；将选中A类主题的类别含义、关键词与搜索需求作为重要内容参考，结合原资讯生词并解释结合依据；保留原B归类 | - | `config/quadrant_b_llm_cfg.json` |
 | quadrant_c | `nodes/quadrant_c_node.py` | agent | C·低曝光高点击类目生词(深度精准) | - | `config/quadrant_c_llm_cfg.json` |
-| quadrant_d | `nodes/quadrant_d_node.py` | agent | D·低曝光低点击类目生词(关联探索)；将选中A类主题作为重要内容参考，结合原资讯寻找关联搜索需求，最多2个关联词并解释结合依据；保留原D归类 | - | `config/quadrant_d_llm_cfg.json` |
+| quadrant_d | `nodes/quadrant_d_node.py` | agent | D·低曝光低点击类目生词(关联探索)；将选中A类主题作为重要内容参考，结合原资讯寻找关联搜索需求，最多3个关联词并解释结合依据；保留原D归类 | - | `config/quadrant_d_llm_cfg.json` |
 | ai_generate | `nodes/ai_generate_node.py` | agent | 分类校验未接受类目或区域异常时，基于资讯事实执行AI生词 | - | `config/ai_generate_llm_cfg.json` |
 | final_summary | `nodes/final_summary_node.py` | task | **最终输出汇总**：聚合专题相关/热点题材相关/分类+按象限生词三部分，各部分给出推荐词、跳转链接与首选词 best_word + 理由；并透出 out_priority 优先出词判断 | 所有生词终点(quadrant_a~d、ai_generate)→final_summary→END | - |
 
@@ -79,8 +93,8 @@
 - **接入点**：长驻服务启动时应调用一次 `from tools.search_classifier import warmup; warmup()`（部署侧挂到启动流程/入口，避免首个请求冷启动卡顿）。
 
 ## 节点实现
-- A 象限生词目标数量为 3–5 个（2026-11-09）；合格延伸不足时允许少出或不出，仍按优先级排序。
-- 未归类 AI 生词目标数量为 3–5 个；不足 3 个合格延伸方向时允许少出，仍要求每个词配一条同词同序的完整 query。目标数量由提示词控制，现有空结果及跑批校验规则继续适用。
+- A 象限生词目标数量为 最多3 个（2026-11-09）；合格延伸不足时允许少出或不出，仍按优先级排序。
+- 未归类 AI 生词目标数量为 最多3 个；不足 3 个合格延伸方向时允许少出，仍要求每个词配一条同词同序的完整 query。目标数量由提示词控制，现有空结果及跑批校验规则继续适用。
 - LLM 运行约定（2026-11-09）：所有 LLM 节点统一使用东财接口，凭据为 `EM_API_KEY`，地址默认 `https://dd-ai-api.eastmoney.com/coding/v1`（可通过 `EM_API_BASE_URL` 配置），全局模型覆盖为 `EM_MODEL`。本地 Qwen 权重、加载／推理代码和运行模式切换已移除；离线测试通过 mock HTTP 或节点函数实现，不提供生产 mock 分支。`.models/minilm`、Torch 和 Transformers 是本地分类依赖，继续保留。
 - topic_recall / hot_theme_recall读取本地Excel，并通过 `src/tools/local_retrieval.py` 召回候选
 - 各LLM节点通过 `src/tools/llm_utils.py` 调用真实模型，Coze部署与存储工具不属于当前运行依赖
@@ -98,6 +112,6 @@
 **延伸内容硬规则（2026-11-09）**：A/B/C/D 与未归类 AI 的 system/user prompt 要求推荐词本身及其对应 query 均指向原文未回答的延伸需求；禁止摘词、缩写标题、同义复述、把已披露事实改成问题，不能只在 query 中补充新意图。允许复用实体作锚点、引入与资讯有关且可核实的知识或方法，禁止编造新事实和确定性预测。延伸质量优先于目标数量，无合格方向时允许两数组为空；仍保留推荐词优先级、query 同词同序及原输出结构。专题／热点不适用本次新增规则。这是提示词硬约束及模型自检要求，现有运行时结构校验不等同于语义验证。
 
 
-**专题／热点目标内容生词（2026-11-09）**：专题和热点生词重点依据跳转目标页面主要内容，原资讯只作阅读起点及已知信息边界，不要求逐事实强关联；推荐词必须提供原文之外且能由目标内容承接的延伸阅读。资料优先级为按URL传入的 `page_contents`、清单或单节点传入的页面主要内容、专题导语／热点释义。清单可选列名为“页面主要内容”。API／CLI输入可选 `page_contents` 对象，键为目标URL，值为内容字符串。专题导语和热点释义由候选命中结果传至生成节点，均为内部过程字段，不增加最终字段。当前不抓取网页，不把摘要冒称为完整页面内容；无依据时不得虚构。推荐词数量仍为3个，保留6字／9字版和最终输出结构。
+**专题／热点目标内容生词（2026-11-09）**：专题和热点生词重点依据跳转目标页面主要内容，原资讯只作阅读起点及已知信息边界，不要求逐事实强关联；推荐词必须提供原文之外且能由目标内容承接的延伸阅读。资料优先级为按URL传入的 `page_contents`、清单或单节点传入的页面主要内容、专题导语／热点释义。清单可选列名为“页面主要内容”。API／CLI输入可选 `page_contents` 对象，键为目标URL，值为内容字符串。专题导语和热点释义由候选命中结果传至生成节点，均为内部过程字段，不增加最终字段。当前不抓取网页，不把摘要冒称为完整页面内容；无依据时不得虚构。专题／热点推荐词数量为1个，保留10字以内首选短版和最终输出结构。
 
 **D 象限空结果（2026-11-09）**：完整已归类链路允许 D 类目保留分类成功但不出词，结果项为 `word_source="quadrant_D"`、`recommended_words=[]`、`ai_queries=[]`，分类 ID、名称与依据仍保留，不转 AI。单归类和双归类各组独立适用；A/B/C 仍要求非空推荐词。CSV／JSON 跑批校验、续跑及策略刷新均接受合法 D 空结果，不因空词重试。未归类 AI 的现有跑批校验不变。

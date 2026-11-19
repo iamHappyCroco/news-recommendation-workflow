@@ -44,6 +44,7 @@ def quadrant_d_node(
     return QuadrantOutput(
         recommended_words=words,
         ai_queries=queries,
+        short_words=data["short_words"],
         word_source="quadrant_D",
         generation_reason=str(
             data.get("generation_reason")

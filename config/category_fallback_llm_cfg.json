@@ -1,6 +1,7 @@
 {
     "config": {
-        "temperature": 0.1,
+        "temperature": 0,
+    "top_p": 1.0,
         "max_completion_tokens": 1000,
         "thinking": "disabled",
         "model": "DeepSeek-V4-Flash-0731"

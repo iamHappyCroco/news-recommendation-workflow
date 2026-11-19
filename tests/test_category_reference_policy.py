@@ -60,8 +60,8 @@ class CategoryReferencePolicyTests(unittest.TestCase):
     def test_b_and_d_receive_important_category_without_changing_region(self):
         for region, generate in [("B", quadrant_b_node), ("D", quadrant_d_node)]:
             with self.subTest(region=region):
-                response = {"recommended_words": ["company computing servers"],
-                            "ai_queries": [{"word": "company computing servers", "query": "How do server orders affect computing demand?"}],
+                response = {"recommended_words": ["算力服务器需求验证"], "short_words": [{"word": "算力服务器需求验证", "short": "算力服务器需求验证", "subject": "算力服务器"}],
+                            "ai_queries": [{"word": "算力服务器需求验证", "query": "How do server orders affect computing demand?", "query_summary": "算力服务器需求验证" + "验证要点"}],
                             "generation_reason": CONNECTION}
                 module = f"graphs.nodes.quadrant_{region.lower()}_node"
                 with patch(f"{module}.invoke_llm", return_value=json.dumps(response)) as llm:
@@ -87,8 +87,8 @@ class CategoryReferencePolicyTests(unittest.TestCase):
             with self.subTest(region=region):
                 module = f"graphs.nodes.quadrant_{region.lower()}_node"
                 with patch(f"{module}.invoke_llm", return_value=json.dumps(
-                    {"recommended_words": ["server orders"],
-                     "ai_queries": [{"word": "server orders", "query": "What changed in server orders?"}]},
+                    {"recommended_words": ["服务器订单验证"], "short_words": [{"word": "服务器订单验证", "short": "服务器订单验证", "subject": "服务器"}],
+                     "ai_queries": [{"word": "服务器订单验证", "query": "What changed in server orders?", "query_summary": "服务器订单验证" + "验证要点"}]},
                 )) as llm:
                     output = generate(
                         QuadrantInput(title="server orders", content="body", region=region, has_hot_topic=False),
@@ -100,25 +100,25 @@ class CategoryReferencePolicyTests(unittest.TestCase):
                 self.assertTrue(output.generation_reason)
 
     def test_prompts_require_category_article_combination_and_keep_counts(self):
-        for region, count in [("b", "3-5"), ("d", "1-2")]:
+        for region, count in [("b", "最多3"), ("d", "最多3")]:
             with self.subTest(region=region):
                 cfg = json.loads((ROOT / f"config/quadrant_{region}_llm_cfg.json").read_text(encoding="utf-8"))
                 self.assertIn(count, cfg["sp"])
-                self.assertIn("generation_reason", cfg["sp"])
                 self.assertIn("\u91cd\u8981\u53c2\u8003\u7c7b\u522b", cfg["sp"])
-                self.assertIn("\u539f\u8d44\u8baf\u4e3b\u4f53\u4e0e\u4e8b\u5b9e", cfg["up"])
+                self.assertIn("{{has_hot_topic}}", cfg["up"])
+                self.assertIn("{{hot_rep_searches}}", cfg["up"])
                 self.assertNotIn("\u4f9b\u98ce\u683c\u53c2\u7167", cfg["up"])
 
     def test_second_d_candidate_uses_its_selected_category_independently(self):
         module = "graphs.nodes.category_candidate_generate_node"
         reference = HotTopicSelectOutput(has_hot_topic=True, hot_leaf_name=REFERENCE_NAME,
                                          hot_reference_text=CONNECTION, hot_rep_searches=["computing servers"])
-        generated = QuadrantOutput(recommended_words=["company computing servers"], word_source="quadrant_D",
-                                   ai_queries=[{"word": "company computing servers", "query": "How do server orders affect computing demand?"}],
+        generated = QuadrantOutput(recommended_words=["算力服务器需求验证"], word_source="quadrant_D", short_words=[{"word": "算力服务器需求验证", "short": "算力服务器需求验证"}],
+                                   ai_queries=[{"word": "算力服务器需求验证", "query": "How do server orders affect computing demand?", "query_summary": "算力服务器需求验证" + "验证要点"}],
                                    generation_reason=CONNECTION)
         article = GlobalState(title="server orders", content="company wins server orders",
-                              ai_queries=[{"word": "primary word", "query": "What changed in server orders?"}],
-                              recommended_words=["primary word"], word_source="quadrant_A",
+                              ai_queries=[{"word": "primary word", "query": "What changed in server orders?", "query_summary": "primary word" + "验证要点"}],
+                              recommended_words=["primary word"], short_words=[{"word": "primary word", "short": "primary"}], word_source="quadrant_A",
                               classification_candidates=[
                                   ClassificationCandidate(leaf_id=1, category="technology", sub_category="primary",
                                                           region="A", quadrant="A"),
@@ -133,7 +133,7 @@ class CategoryReferencePolicyTests(unittest.TestCase):
         self.assertEqual(self.captured.hot_reference_text, CONNECTION)
         self.assertEqual(self.captured.region, "D")
         self.assertEqual(output.category_candidate_results[0]["recommended_words"], ["primary word"])
-        self.assertEqual(output.category_candidate_results[1]["recommended_words"], ["company computing servers"])
+        self.assertEqual(output.category_candidate_results[1]["recommended_words"], ["算力服务器需求验证"])
         self.assertEqual(output.category_candidate_results[0]["ai_queries"], article.ai_queries)
         self.assertEqual(output.category_candidate_results[1]["ai_queries"], generated.ai_queries)
         for result in output.category_candidate_results:

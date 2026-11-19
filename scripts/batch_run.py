@@ -23,9 +23,10 @@ load_dotenv(ROOT / ".env")
 from graphs.graph import main_graph  # noqa: E402
 from graphs.nodes.final_summary_node import classification_source_display, classification_region_display, compact_generation_results  # noqa: E402
 from tools.article_input import prepare_article_input  # noqa: E402
+from tools.llm_utils import generation_retry_feedback  # noqa: E402
 from tools.runtime import Context  # noqa: E402
 from tools.search_classifier import warmup  # noqa: E402
-from tools.word_extras import ai_queries  # noqa: E402
+from tools.word_extras import ai_queries, validate_words, validate_jump_word, short_words, SHORT_SUBJECT_POLICY_VERSION  # noqa: E402
 
 
 def _args() -> argparse.Namespace:
@@ -36,7 +37,7 @@ def _args() -> argparse.Namespace:
     parser.add_argument("--output-dir", default=str(ROOT / "outputs" / "batch_run"))
     parser.add_argument("--output-csv", help="Write only this CSV, with incremental progress; accepts Excel input")
     parser.add_argument("--workers", type=int, default=4)
-    parser.add_argument("--attempts", type=int, default=3)
+    parser.add_argument("--attempts", type=int, choices=range(1, 11), default=10)
     parser.add_argument("--resume", action="store_true", help="Reuse successful rows in --output-csv")
     parser.add_argument("--rerun-indices", default="", help="With --resume, retry only these comma-separated article positions")
     parser.add_argument("--reuse-from", help="Reuse a previous CSV and rerun only categories affected by the new policy")
@@ -44,11 +45,12 @@ def _args() -> argparse.Namespace:
     return parser.parse_args()
 
 
-async def _run_one(payload: dict[str, Any]) -> dict[str, Any]:
+async def _run_one(payload: dict[str, Any], *, retry_feedback: str = "") -> dict[str, Any]:
     graph_payload = prepare_article_input(payload["title"], payload["content"], payload.get("page_contents"))
     updates: dict[str, Any] = {}
-    async for event in main_graph.astream(graph_payload, context=Context(), stream_mode="updates"):
-        updates.update(event)
+    with generation_retry_feedback(retry_feedback):
+        async for event in main_graph.astream(graph_payload, context=Context(), stream_mode="updates"):
+            updates.update(event)
     model = updates.get("category_model_classify", {}) or {}
     final_node = updates.get("final_summary", {}) or {}
     final_summary = final_node.get("final_summary", {}) or {}
@@ -83,6 +85,7 @@ def _summary_row(source: dict[str, Any], result: dict[str, Any], index: int) -> 
         "生产时间": source.get("生产时间", ""),
         "资讯标题": source.get("资讯标题", ""),
         "运行状态": "成功",
+        "生词规则版本": SHORT_SUBJECT_POLICY_VERSION,
         "耗时秒": result.get("elapsed_seconds", 0),
         "模型可用": model.get("model_available", False),
         "模型主题": model.get("model_leaf_name", ""),
@@ -101,15 +104,13 @@ def _summary_row(source: dict[str, Any], result: dict[str, Any], index: int) -> 
         "象限说明": category.get("quadrant", ""),
         "专题命中": topic.get("matched", False),
         "专题": topic.get("title", ""),
-        "专题推荐词": "｜".join(topic.get("recommended_words", []) or []),
-        "专题展示版": json.dumps(topic.get("display_variants", []), ensure_ascii=False),
-        "专题首选词": topic.get("best_word", ""),
+        "专题推荐词": topic.get("word", ""),
+        "专题首选词短版": topic.get("short", ""),
         "专题跳转链接": topic.get("jump_url", ""),
         "热点题材命中": theme.get("matched", False),
         "热点题材": theme.get("name", ""),
-        "热点题材推荐词": "｜".join(theme.get("recommended_words", []) or []),
-        "热点展示版": json.dumps(theme.get("display_variants", []), ensure_ascii=False),
-        "热点首选词": theme.get("best_word", ""),
+        "热点题材推荐词": theme.get("word", ""),
+        "热点首选词短版": theme.get("short", ""),
         "热点跳转链接": theme.get("jump_url", ""),
         "优先出词": final.get("out_priority", "none"),
         "优先理由": final.get("out_priority_reason", ""),
@@ -118,16 +119,17 @@ def _summary_row(source: dict[str, Any], result: dict[str, Any], index: int) -> 
 
 def _has_word_extras(row: dict[str, Any]) -> bool:
     """Do not reuse a successful row that predates the new per-word fields."""
+    if row.get("生词规则版本") != SHORT_SUBJECT_POLICY_VERSION:
+        return False
     def aligned(field: str, words_field: str) -> bool:
         try:
-            items = json.loads(row.get(field) or "[]")
+            word = str(row.get(words_field) or "")
+            if "｜" in word:
+                raise ValueError("旧跳转多词结果不能复用")
+            validate_jump_word({"word": word, "short": row.get(field, "")})
         except (TypeError, ValueError):
             return False
-        words = [word for word in str(row.get(words_field) or "").split("｜") if word]
-        return isinstance(items, list) and len(items) == len(words) and all(
-            isinstance(item, dict) and item.get("word") == word
-            for item, word in zip(items, words)
-        )
+        return True
 
     try:
         _validate_generation_output({"generation_results": _row_generation_results(row)})
@@ -135,8 +137,8 @@ def _has_word_extras(row: dict[str, Any]) -> bool:
     except (TypeError, ValueError, AttributeError):
         ai_aligned = False
     return (
-        (str(row.get("专题命中", "")).lower() != "true" or aligned("专题展示版", "专题推荐词"))
-        and (str(row.get("热点题材命中", "")).lower() != "true" or aligned("热点展示版", "热点题材推荐词"))
+        (str(row.get("专题命中", "")).lower() != "true" or aligned("专题首选词短版", "专题推荐词"))
+        and (str(row.get("热点题材命中", "")).lower() != "true" or aligned("热点首选词短版", "热点题材推荐词"))
         and ai_aligned
     )
 
@@ -144,6 +146,7 @@ def _has_word_extras(row: dict[str, Any]) -> bool:
 def _compact_export_row(row: dict[str, Any]) -> dict[str, Any]:
     """Migrate historical CSV rows to one ordered list of generation results."""
     retired_columns = {
+        "专题展示版", "热点展示版", "专题首选词", "热点首选词",
         "专题首选理由", "专题逐词排序理由", "热点首选理由", "热点逐词排序理由",
         "分类象限首选理由", "分类象限逐词排序理由", "分类象限推荐词生成策略及理由",
         "归类模式", "分类路径", "归类校验理由", "模型首二差距", "模型主题训练样本量", "模型需复核原因",
@@ -196,10 +199,31 @@ def _validate_generation_output(category: dict[str, Any]) -> None:
     for item in generated:
         if not isinstance(item, dict):
             raise ValueError("Workflow returned invalid generation result")
+        if any(key in item for key in ("ai_queries", "short_words", "best_word", "best_word_short")):
+            raise ValueError("最终分类结果仅在recommended_words中输出逐词四字段，不输出重复数组")
         words = item.get("recommended_words")
         if not isinstance(words, list) or (not words and item.get("word_source") != "quadrant_D"):
             raise ValueError("Workflow returned missing ranked words outside quadrant D")
-        ai_queries(item, words)
+        if any(not isinstance(entry, dict) or set(entry) != {"word", "short", "query", "query_summary"} for entry in words):
+            raise ValueError("分类推荐词每项必须包含word、short、query、query_summary四个字段")
+        original_words = [entry["word"] for entry in words]
+        validate_words(original_words)
+        short_words({"short_words": words}, original_words)
+        ai_queries({"ai_queries": words}, original_words)
+    if sum(len(item["recommended_words"]) for item in generated) > 3:
+        raise ValueError("分类生词结果合计不得超过3个词")
+
+
+def _validate_final_summary(final: dict[str, Any]) -> None:
+    """Validate all three destinations before exporting or reusing results."""
+    for field in ("topic_related", "hot_theme_related"):
+        result = final.get(field, {})
+        validate_jump_word(result)
+        if any(key in result for key in ("subject", "link_type")):
+            raise ValueError("跳转主体和结合类型仅供内部校验，不进入最终输出")
+        if not result.get("matched") and result["word"]:
+            raise ValueError("未命中的跳转方向不能输出推荐词")
+    _validate_generation_output(final.get("category_quadrant", {}))
 
 
 def _upgrade_provenance_row(row: dict[str, Any]) -> dict[str, Any]:
@@ -307,11 +331,12 @@ async def _run_csv_only(args: argparse.Namespace) -> None:
         async with semaphore:
             payload = prepare_article_input(source["资讯标题"], source["资讯正文"])
             started = time.perf_counter()
+            last_error = ""
             for attempt in range(1, args.attempts + 1):
                 try:
-                    result = await _run_one(payload)
+                    result = await _run_one(payload, retry_feedback=last_error)
                     final = result.get("final_summary", {})
-                    _validate_generation_output(final.get("category_quadrant", {}))
+                    _validate_final_summary(final)
                     result["elapsed_seconds"] = round(time.perf_counter() - started, 3)
                     row = _summary_row(source, result, position)
                     row["输入正文字符数"] = len(payload["content"])
@@ -322,6 +347,7 @@ async def _run_csv_only(args: argparse.Namespace) -> None:
                     row["本次耗时秒"] = result["elapsed_seconds"]
                     break
                 except Exception as exc:
+                    last_error = str(exc) if isinstance(exc, ValueError) else ""
                     print(f"Article {position} attempt {attempt} failed: {exc}", flush=True)
                     if attempt < args.attempts:
                         await asyncio.sleep(min(2 ** attempt, 8))
@@ -343,8 +369,11 @@ async def _run_csv_only(args: argparse.Namespace) -> None:
 def _old_final_summary(row: dict[str, Any]) -> dict[str, Any]:
     """Restore the previous outputs without consulting the LLM or blue-label column."""
     row = _compact_export_row(row)
-    def words(key: str) -> list[str]:
-        return [word for word in str(row.get(key, "")).split("｜") if word]
+    def word(key: str) -> str:
+        value = str(row.get(key, ""))
+        if "｜" in value:
+            return ""
+        return value
 
     return {
         "out_priority": row.get("优先出词", "none"),
@@ -352,16 +381,14 @@ def _old_final_summary(row: dict[str, Any]) -> dict[str, Any]:
         "topic_related": {
             "matched": str(row.get("专题命中", "")).lower() == "true",
             "title": row.get("专题", ""), "jump_url": row.get("专题跳转链接", ""),
-            "word_source": "topic", "recommended_words": words("专题推荐词"),
-            "display_variants": json.loads(row.get("专题展示版") or "[]"),
-            "best_word": row.get("专题首选词", ""),
+            "word_source": "topic", "word": word("专题推荐词"),
+            "short": row.get("专题首选词短版", ""),
         },
         "hot_theme_related": {
             "matched": str(row.get("热点题材命中", "")).lower() == "true",
             "name": row.get("热点题材", ""), "jump_url": row.get("热点跳转链接", ""),
-            "word_source": "hot_theme", "recommended_words": words("热点题材推荐词"),
-            "display_variants": json.loads(row.get("热点展示版") or "[]"),
-            "best_word": row.get("热点首选词", ""),
+            "word_source": "hot_theme", "word": word("热点题材推荐词"),
+            "short": row.get("热点首选词短版", ""),
         },
         "category_quadrant": {
             "classification_source": row.get("分类来源", "未归类"),
@@ -479,7 +506,7 @@ async def _run_policy_refresh(args: argparse.Namespace) -> None:
             reasons.append("原结果缺失或失败")
         extras_missing = not _has_word_extras(old)
         if extras_missing:
-            reasons.append("缺少新增展示版或AI问答问句，需完整重跑")
+            reasons.append("生词规则版本或跳转词、逐词AI问答字段不符合当前要求，需完整重跑")
         if score_changed or not model["model_available"]:
             reasons.append("输入或模型预测变化")
         if high_review:
@@ -523,10 +550,11 @@ async def _run_policy_refresh(args: argparse.Namespace) -> None:
             return
         async with semaphore:
             started = time.perf_counter()
+            last_error = ""
             for attempt in range(1, args.attempts + 1):
                 try:
                     if force_full or old.get("运行状态") != "成功":
-                        result = await _run_one(payload)
+                        result = await _run_one(payload, retry_feedback=last_error)
                     else:
                         topic, theme = prior["topic_related"], prior["hot_theme_related"]
                         seed = {
@@ -537,13 +565,14 @@ async def _run_policy_refresh(args: argparse.Namespace) -> None:
                             "hot_theme_hit_result": theme, "out_priority": prior["out_priority"],
                             "out_priority_reason": prior["out_priority_reason"],
                         }
-                        output = await category_graph.ainvoke(seed, context=Context())
+                        with generation_retry_feedback(last_error):
+                            output = await category_graph.ainvoke(seed, context=Context())
                         final = _jsonable(output["final_summary"])
                         # Keep prior extra outputs byte-for-byte at the business-field level.
                         final.update(topic_related=topic, hot_theme_related=theme,
                                      out_priority=prior["out_priority"], out_priority_reason=prior["out_priority_reason"])
                         result = {"model_classification": model, "final_summary": final}
-                    _validate_generation_output(result["final_summary"]["category_quadrant"])
+                    _validate_final_summary(result["final_summary"])
                     result["elapsed_seconds"] = round(time.perf_counter()-started, 3)
                     row = _summary_row(source, result, position)
                     row.update({"输入正文字符数": len(payload["content"]), "运行次数": attempt, "错误": "",
@@ -551,6 +580,7 @@ async def _run_policy_refresh(args: argparse.Namespace) -> None:
                                 "本次耗时秒": result["elapsed_seconds"]})
                     break
                 except Exception as exc:
+                    last_error = str(exc) if isinstance(exc, ValueError) else ""
                     print(f"Refresh {position}, attempt {attempt} failed: {exc}", flush=True)
                     if attempt < args.attempts:
                         await asyncio.sleep(min(2 ** attempt, 8))

@@ -21,9 +21,8 @@ from tools.article_input import prepare_article_input
 from tools.runtime import Context
 
 RUNTIME = SimpleNamespace(context=Context())
-WORDS = ["routes", "chains", "limits"]
-OUTPUT = json.dumps({"recommended_words": WORDS, "display_variants": [
-    {"word": word, "display_6": word, "display_9": word} for word in WORDS]})
+WORDS = ["routes"]
+OUTPUT = json.dumps({"word": "routes", "short": "routes", "subject": "routes", "link_type": "主线"})
 
 
 def config(name):
@@ -48,7 +47,7 @@ class DestinationContentTests(unittest.TestCase):
                 config("topic_word_generate"), RUNTIME)
         self.assertEqual(llm.call_args.args[2]["target_page_content"], fitted.fit_topic_intro)
         self.assertEqual(llm.call_args.args[2]["content"], "new robot released")
-        self.assertEqual(output.topic_hit_result["recommended_words"], WORDS)
+        self.assertEqual(output.topic_hit_result["word"], WORDS[0])
         self.assertNotIn("target_page_content", output.topic_hit_result)
 
     def test_hot_theme_interpretation_is_preserved_from_recall_through_generation(self):
@@ -67,7 +66,7 @@ class DestinationContentTests(unittest.TestCase):
                 **{key: value for key, value in fitted.model_dump().items() if key in HotThemeWordGenerateInput.model_fields}),
                 config("hot_theme_word_generate"), RUNTIME)
         self.assertEqual(llm.call_args.args[2]["target_page_content"], fitted.interpretation)
-        self.assertEqual(output.hot_theme_hit_result["recommended_words"], WORDS)
+        self.assertEqual(output.hot_theme_hit_result["word"], WORDS[0])
 
     def test_only_matching_url_content_overrides_page_text_and_summary(self):
         cases = [

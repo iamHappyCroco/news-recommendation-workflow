@@ -11,7 +11,7 @@ from graphs.nodes.quadrant_b_node import quadrant_b_node
 from graphs.nodes.quadrant_c_node import quadrant_c_node
 from graphs.nodes.quadrant_d_node import quadrant_d_node
 from tools.runtime import Context
-from tools.word_extras import ai_queries
+from tools.word_extras import ai_queries, validate_words, short_words
 
 
 GENERATORS = {
@@ -34,6 +34,7 @@ def category_candidate_generate_node(
             words = state.recommended_words
             source = state.word_source
             queries = state.ai_queries
+            shorts = state.short_words
         else:
             reference = {}
             if candidate.region in {"B", "D"}:
@@ -60,11 +61,21 @@ def category_candidate_generate_node(
             words = generated.recommended_words
             source = generated.word_source
             queries = generated.ai_queries
+            shorts = generated.short_words
         if not words and candidate.region != "D":
             raise ValueError(f"分类候选ID{candidate.leaf_id}未生成推荐词，需重试")
+        validate_words(list(words))
+        shorts = short_words({"short_words": shorts}, list(words))
+        # Reserve one word for each remaining category; total output is at most three.
+        remaining = 3 - sum(len(item["recommended_words"]) for item in results)
+        reserve = len(state.classification_candidates) - index - 1
+        limit = max(0, remaining - reserve)
+        words = list(words)[:limit]
+        queries = list(queries)[:limit]
+        shorts = shorts[:limit]
         queries = ai_queries({"ai_queries": queries}, list(words), state.title + state.content)
         results.append({
             **candidate.model_dump(exclude={"keywords", "rep_searches"}),
-            "word_source": source, "recommended_words": list(words), "ai_queries": queries,
+            "word_source": source, "recommended_words": list(words), "ai_queries": queries, "short_words": shorts,
         })
     return CategoryCandidateGenerateOutput(category_candidate_results=results)

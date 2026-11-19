@@ -19,9 +19,8 @@ from tools.runtime import Context
 
 class GenerationOutputContractTests(unittest.TestCase):
     def test_topic_and_hot_theme_outputs_keep_order_and_display_without_reasons(self):
-        words = ["robots", "orders", "parts"]
-        payload = {"recommended_words": words, "display_variants": [
-            {"word": word, "display_6": word, "display_9": word} for word in words]}
+        words = ["robots"]
+        payload = {"word": "robots", "short": "robots", "subject": "robots", "link_type": "主线"}
         cases = [
             ("topic_word_generate", topic_word_generate_node,
              TopicWordGenerateInput(title="robots", content="body", fit_topic_title="robot topic"), "topic_hit_result"),
@@ -36,9 +35,13 @@ class GenerationOutputContractTests(unittest.TestCase):
                                           SimpleNamespace(context=Context())).model_dump()
                     self.assertNotIn("ranking_reasons", output)
                     self.assertNotIn("ranking_reasons", output[result_key])
-                    self.assertEqual(output["recommended_words"], words)
-                    self.assertEqual(output[result_key]["display_variants"], payload["display_variants"])
-                    self.assertEqual(output[result_key]["best_word"], words[0])
+                    self.assertNotIn("recommended_words", output)
+                    self.assertEqual(output[result_key]["word"], "robots")
+                    self.assertEqual(output[result_key]["short"], "robots")
+                    self.assertNotIn("subject", output[result_key])
+                    self.assertNotIn("link_type", output[result_key])
+                    self.assertNotIn("display_variants", output[result_key])
+                    self.assertNotIn("best_word", output[result_key])
 
     def test_prompt_json_examples_and_process_models_have_no_ranking_field(self):
         names = ["topic_word_generate", "hot_theme_word_generate", "quadrant_a", "quadrant_b",

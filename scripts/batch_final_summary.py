@@ -10,7 +10,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from batch_run import _run_one, _validate_generation_output, prepare_article_input, warmup
+from batch_run import _run_one, _validate_final_summary, prepare_article_input, warmup
+from tools.word_extras import SHORT_SUBJECT_POLICY_VERSION
 
 
 async def main() -> None:
@@ -19,6 +20,7 @@ async def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--limit", type=int, default=10)
     parser.add_argument("--workers", type=int, default=2)
+    parser.add_argument("--attempts", type=int, choices=range(1, 11), default=10)
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
     if args.limit < 1 or args.workers < 1:
@@ -44,7 +46,12 @@ async def main() -> None:
             if record["title"] != source["资讯标题"] or record["article_id"] != source.get("资讯ID", ""):
                 raise ValueError("Resume record does not match source")
             if record.get("status") == "success":
-                _validate_generation_output(record["final_summary"].get("category_quadrant", {}))
+                if record.get("word_policy_version") != SHORT_SUBJECT_POLICY_VERSION:
+                    continue
+                try:
+                    _validate_final_summary(record["final_summary"])
+                except (ValueError, TypeError, AttributeError):
+                    continue
                 records[index] = record
     semaphore = asyncio.Semaphore(args.workers)
     print(f"Prepared {len(selected)} articles; warming local classifier", flush=True)
@@ -70,21 +77,23 @@ async def main() -> None:
                 "input_content_chars": len(payload["content"]),
             }
             started = time.perf_counter()
-            for attempt in range(1, 4):
+            last_error = ""
+            for attempt in range(1, args.attempts + 1):
                 try:
-                    result = await _run_one(payload)
+                    result = await _run_one(payload, retry_feedback=last_error)
                     final = result["final_summary"]
                     if not final:
                         raise ValueError("Empty final_summary")
-                    _validate_generation_output(final.get("category_quadrant", {}))
-                    record.update(status="success", final_summary=final)
+                    _validate_final_summary(final)
+                    record.update(status="success", final_summary=final, word_policy_version=SHORT_SUBJECT_POLICY_VERSION)
                     break
                 except Exception as exc:
+                    last_error = str(exc) if isinstance(exc, ValueError) else ""
                     print(f"Article {index} attempt {attempt}: {type(exc).__name__}: {exc}", flush=True)
-                    if attempt == 3:
+                    if attempt == args.attempts:
                         record.update(status="failed", error=f"{type(exc).__name__}: {exc}")
                     else:
-                        await asyncio.sleep(2 ** attempt)
+                        await asyncio.sleep(min(2 ** attempt, 8))
             record.update(attempts=attempt, elapsed_seconds=round(time.perf_counter() - started, 3))
             records[index] = record
             save()

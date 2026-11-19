@@ -23,9 +23,10 @@ from tools.runtime import Context
 from batch_run import _has_word_extras, _summary_row, _old_final_summary, _validate_generation_output
 
 RUNTIME = SimpleNamespace(context=Context())
-WORDS = ["robot orders", "robot components"]
-QUERIES = [{"word": WORDS[0], "query": "What is the commercialization progress of the newly released robots?"},
-           {"word": WORDS[1], "query": "Which components are used in the newly released robots?"}]
+WORDS = ["机器人订单验证", "机器人部件比较"]
+SHORTS = [{"word": w, "short": w, "subject": "机器人"} for w in WORDS]
+QUERIES = [{"word": WORDS[0], "query": "What is the commercialization progress of the newly released robots?", "query_summary": WORDS[0] + "验证要点"},
+           {"word": WORDS[1], "query": "Which components are used in the newly released robots?", "query_summary": WORDS[1] + "验证要点"}]
 
 
 class CategoryQueryTests(unittest.TestCase):
@@ -37,17 +38,17 @@ class CategoryQueryTests(unittest.TestCase):
                 article = AiGenerateInput(title="new robots", content="robot component and order progress") if region == "ai" else QuadrantInput(
                     title="new robots", content="robot component and order progress", region=region, category="concept", sub_category="robots")
                 with patch(f"graphs.nodes.{node}_node.invoke_llm", return_value=json.dumps(
-                    {"recommended_words": WORDS, "ai_queries": QUERIES})):
+                    {"recommended_words": WORDS, "ai_queries": QUERIES, "short_words": SHORTS})):
                     generated = generate(article, {"metadata": {"llm_cfg": f"config/{node}_llm_cfg.json"}}, RUNTIME)
                 self.assertEqual(generated.ai_queries, QUERIES)
                 self.assertNotIn("ranking_reasons", generated.model_dump())
                 result = final_summary_node(FinalSummaryInput(
                     region="" if region == "ai" else region,
                     category="" if region == "ai" else "concept", sub_category="" if region == "ai" else "robots",
-                    recommended_words=generated.recommended_words, ai_queries=generated.ai_queries,
+                    recommended_words=generated.recommended_words, ai_queries=generated.ai_queries, short_words=generated.short_words,
                     word_source=generated.word_source), {}, RUNTIME).final_summary
                 category = result["category_quadrant"]
-                self.assertEqual(category["generation_results"][0]["ai_queries"], QUERIES)
+                self.assertEqual([{k: v[k] for k in ("word", "query", "query_summary")} for v in category["generation_results"][0]["recommended_words"]], QUERIES)
                 _validate_generation_output(category)
                 row = _summary_row({}, {"final_summary": result}, 1)
                 self.assertTrue(_has_word_extras(row))
@@ -60,7 +61,7 @@ class CategoryQueryTests(unittest.TestCase):
                 module = f"graphs.nodes.quadrant_{region.lower()}_node"
                 with patch(f"{module}.invoke_llm", side_effect=[
                     json.dumps({"recommended_words": WORDS}),
-                    json.dumps({"recommended_words": WORDS, "ai_queries": QUERIES})]) as llm:
+                    json.dumps({"recommended_words": WORDS, "ai_queries": QUERIES, "short_words": SHORTS})]) as llm:
                     result = generate(QuadrantInput(title="new robots", content="body", region=region),
                         {"metadata": {"llm_cfg": f"config/quadrant_{region.lower()}_llm_cfg.json"}}, RUNTIME)
                 self.assertEqual(result.ai_queries, QUERIES)
@@ -68,19 +69,19 @@ class CategoryQueryTests(unittest.TestCase):
                 self.assertTrue(llm.call_args.args[2]["repair_note"])
 
     def test_missing_reordered_or_blank_queries_prevent_resume(self):
-        for queries in [None, [], QUERIES[::-1], [{"word": w, "query": ""} for w in WORDS]]:
+        for queries in [None, [], QUERIES[::-1], [{"word": w, "query": "", "query_summary": w + "验证要点"} for w in WORDS]]:
             with self.subTest(queries=queries):
-                group = {"word_source": "quadrant_C", "recommended_words": WORDS, "ai_queries": queries}
+                group = {"word_source": "quadrant_C", "recommended_words": WORDS, "ai_queries": queries, "short_words": SHORTS}
                 self.assertFalse(_has_word_extras({"分类生词结果": json.dumps([group])}))
                 with self.assertRaises(ValueError):
                     _validate_generation_output({"generation_results": [group]})
         self.assertFalse(_has_word_extras({"分类生词结果": json.dumps([
-            {"word_source": "quadrant_A", "recommended_words": WORDS, "ai_queries": QUERIES},
+            {"word_source": "quadrant_A", "recommended_words": WORDS, "ai_queries": QUERIES, "short_words": SHORTS},
             {"word_source": "quadrant_D", "recommended_words": WORDS}])}))
 
     def test_persistently_invalid_questions_fail_generation(self):
         with patch("graphs.nodes.quadrant_c_node.invoke_llm", return_value=json.dumps(
-            {"recommended_words": WORDS, "ai_queries": QUERIES[::-1]})) as llm:
+            {"recommended_words": WORDS, "ai_queries": QUERIES[::-1], "short_words": SHORTS})) as llm:
             with self.assertRaises(ValueError):
                 quadrant_c_node(QuadrantInput(title="robots", content="body", region="C"),
                     {"metadata": {"llm_cfg": "config/quadrant_c_llm_cfg.json"}}, RUNTIME)
@@ -88,7 +89,7 @@ class CategoryQueryTests(unittest.TestCase):
 
     def test_empty_recommendations_have_empty_queries(self):
         with patch("graphs.nodes.quadrant_d_node.invoke_llm", return_value=json.dumps(
-            {"recommended_words": [], "ai_queries": []})):
+            {"recommended_words": [], "ai_queries": [], "short_words": []})):
             result = quadrant_d_node(QuadrantInput(title="robots", content="body", region="D"),
                 {"metadata": {"llm_cfg": "config/quadrant_d_llm_cfg.json"}}, RUNTIME)
         self.assertEqual(result.recommended_words, [])
@@ -104,7 +105,7 @@ class CategoryQueryTests(unittest.TestCase):
                 state = GlobalState(title="article", content="body", category="concept", sub_category="topic 1",
                     can_classify=True, region=regions[0], word_source=f"quadrant_{regions[0]}",
                     classification_source="minilm_verified", classification_candidates=candidates,
-                    recommended_words=words, ai_queries=queries)
+                    recommended_words=words, ai_queries=queries, short_words=[{"word": w, "short": w} for w in words])
                 with patch.dict("graphs.nodes.category_candidate_generate_node.GENERATORS", {
                     "D": lambda *args: QuadrantOutput(recommended_words=[], ai_queries=[], word_source="quadrant_D")
                 }), patch("graphs.nodes.category_candidate_generate_node.hot_topic_select_node",
@@ -119,7 +120,7 @@ class CategoryQueryTests(unittest.TestCase):
                     self.assertEqual(result["leaf_id"], candidate.leaf_id)
                     if candidate.region == "D":
                         self.assertEqual(result["recommended_words"], [])
-                        self.assertEqual(result["ai_queries"], [])
+                        self.assertNotIn("ai_queries", result)
                 _validate_generation_output(category)
                 row = _summary_row({}, {"final_summary": final}, 1)
                 self.assertTrue(_has_word_extras(row))
@@ -134,17 +135,18 @@ class CategoryQueryTests(unittest.TestCase):
                     word_source=f"quadrant_{region}", recommended_words=[], ai_queries=[])
                 with self.assertRaises(ValueError):
                     category_candidate_generate_node(state, {}, RUNTIME)
-                group = {"word_source": f"quadrant_{region}", "recommended_words": [], "ai_queries": []}
+                group = {"word_source": f"quadrant_{region}", "recommended_words": [], "ai_queries": [], "short_words": []}
                 with self.assertRaises(ValueError):
                     _validate_generation_output({"generation_results": [group]})
                 self.assertFalse(_has_word_extras({"分类生词结果": json.dumps([group])}))
 
-    def test_empty_d_requires_explicit_aligned_empty_arrays(self):
+    def test_empty_d_requires_explicit_consolidated_list(self):
+        _validate_generation_output({"generation_results": [{"word_source": "quadrant_D", "recommended_words": []}]})
         for group in [
             {"word_source": "quadrant_D", "ai_queries": []},
-            {"word_source": "quadrant_D", "recommended_words": []},
+            {"word_source": "quadrant_D", "recommended_words": None},
             {"word_source": "quadrant_D", "recommended_words": [], "ai_queries": QUERIES},
-            {"word_source": "ai", "recommended_words": [], "ai_queries": []},
+            {"word_source": "ai", "recommended_words": [], "ai_queries": [], "short_words": []},
         ]:
             with self.subTest(group=group), self.assertRaises(ValueError):
                 _validate_generation_output({"generation_results": [group]})

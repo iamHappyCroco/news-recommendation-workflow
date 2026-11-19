@@ -7,6 +7,7 @@ from langgraph.runtime import Runtime
 from tools.runtime import Context
 
 from graphs.state import FinalSummaryInput, FinalSummaryOutput
+from tools.word_extras import recommendation_details
 
 
 def classification_source_display(source: str, classified: bool, fallback_used: bool = False) -> str:
@@ -50,8 +51,7 @@ def compact_generation_results(results: List[dict]) -> List[dict]:
     for item in results:
         result = {key: item[key] for key in ("leaf_id", "category", "sub_category", "similarity", "reason") if key in item}
         source = item.get("word_source") or (f"quadrant_{item['region']}" if item.get("region") in {"A", "B", "C", "D"} else "")
-        result.update(word_source=source, recommended_words=[str(word).strip() for word in (item.get("recommended_words") or []) if str(word).strip()])
-        result["ai_queries"] = item.get("ai_queries") or []
+        result.update(word_source=source, recommended_words=recommendation_details(item))
         compact.append(result)
     return compact
 
@@ -63,19 +63,11 @@ def final_summary_node(
 ) -> FinalSummaryOutput:
     """
     title: 最终输出汇总
-    desc: 聚合专题相关、热点题材相关与「分类+按象限生词」三部分，输出各自推荐首选词、理由与页面跳转链接，并给出「优先出专题词还是热点词」的判断及理由
+    desc: 汇总专题和热点的单词、短版与链接，以及分类逐词结果，并给出跳转优先方向及理由
     """
     topic_hit: dict = state.topic_hit_result or {}
     hot_theme_hit: dict = state.hot_theme_hit_result or {}
 
-    topic_words: List[str] = []
-    tw = topic_hit.get("recommended_words")
-    if isinstance(tw, list):
-        topic_words = [str(w).strip() for w in tw if str(w).strip()]
-    hot_words: List[str] = []
-    hw = hot_theme_hit.get("recommended_words")
-    if isinstance(hw, list):
-        hot_words = [str(w).strip() for w in hw if str(w).strip()]
     category_words = [str(w).strip() for w in (state.recommended_words or []) if str(w).strip()]
     region, quadrant = classification_region_display(
         state.category_candidate_results, state.region, state.quadrant,
@@ -87,10 +79,10 @@ def final_summary_node(
     if region != "none":
         generated = state.category_candidate_results or [{
             "category": state.category, "sub_category": state.sub_category,
-            "word_source": state.word_source, "recommended_words": category_words, "ai_queries": state.ai_queries,
+            "word_source": state.word_source, "recommended_words": category_words, "ai_queries": state.ai_queries, "short_words": state.short_words,
         }]
     else:
-        generated = [{"word_source": "ai", "recommended_words": category_words, "ai_queries": state.ai_queries}]
+        generated = [{"word_source": "ai", "recommended_words": category_words, "ai_queries": state.ai_queries, "short_words": state.short_words}]
 
     final_summary: dict = {
         "out_priority": state.out_priority,
@@ -101,18 +93,16 @@ def final_summary_node(
             "title": state.fit_topic_title,
             "jump_url": state.fit_topic_url,
             "word_source": topic_hit.get("word_source", "topic"),
-            "recommended_words": topic_words,
-            "display_variants": topic_hit.get("display_variants", []),
-            "best_word": topic_words[0] if topic_words else "",
+            "word": topic_hit.get("word", ""),
+            "short": topic_hit.get("short", ""),
         },
         "hot_theme_related": {
             "matched": state.has_fit_hot_theme,
             "name": state.fit_hot_theme_name,
             "jump_url": state.fit_hot_theme_url,
             "word_source": hot_theme_hit.get("word_source", "hot_theme"),
-            "recommended_words": hot_words,
-            "display_variants": hot_theme_hit.get("display_variants", []),
-            "best_word": hot_words[0] if hot_words else "",
+            "word": hot_theme_hit.get("word", ""),
+            "short": hot_theme_hit.get("short", ""),
         },
         "category_quadrant": {
             "classification_source": classification_source,

@@ -217,7 +217,7 @@ class CategoryPolicyTests(unittest.TestCase):
             self.assertNotIn("模型需复核原因", migrated)
             self.assertNotIn("归类候选及各自推荐词", migrated)
             candidate = json.loads(migrated["分类生词结果"])[0]
-            self.assertEqual(candidate["recommended_words"], ["word1", "word2"])
+            self.assertEqual([v["word"] for v in candidate["recommended_words"]], ["word1", "word2"])
             for field in ("ranking_reasons", "best_word_reason", "generation_reason", "classification_reason", "model_cosine_gap", "model_training_support", "model_review_reasons"):
                 self.assertNotIn(field, candidate)
             self.assertEqual(_upgrade_provenance_row(migrated)["分类来源"], name)
@@ -248,13 +248,13 @@ class CategoryPolicyTests(unittest.TestCase):
         for primary, regions, expected in cases:
             with self.subTest(regions=regions):
                 candidates = [{"region": r, "quadrant": f"label-{r}", "is_primary": i == 0,
-                               "ai_queries": [{"word": f"word-{i}", "query": f"What changed for category {i}?"}],
+                               "ai_queries": [{"word": f"word-{i}", "query": f"What changed for category {i}?", "query_summary": f"word-{i}" + "验证要点"}],
                                "recommended_words": [f"word-{i}"], "best_word": f"word-{i}"}
                               for i, r in enumerate(regions)]
                 article = FinalSummaryInput(region=primary, quadrant=f"label-{primary}",
                     sub_category="topic" if regions else "", word_source=f"quadrant_{primary}" if regions else "ai",
                     recommended_words=["word-0"], category_candidate_results=candidates,
-                    ai_queries=[] if regions else [{"word": "word-0", "query": "What changed?"}])
+                    ai_queries=[] if regions else [{"word": "word-0", "query": "What changed?", "query_summary": "word-0" + "验证要点"}])
                 final_output = final_summary_node(article, {}, RUNTIME)
                 category = final_output.final_summary["category_quadrant"]
                 self.assertEqual(category["region"], expected)
@@ -278,7 +278,7 @@ class CategoryPolicyTests(unittest.TestCase):
                 self.assertEqual(restored["quadrant"], category["quadrant"])
                 self.assertEqual(restored["generation_results"], category["generation_results"])
                 if not regions:
-                    self.assertEqual(category["generation_results"][0]["ai_queries"], [{"word": "word-0", "query": "What changed?"}])
+                    self.assertEqual(category["generation_results"][0]["recommended_words"][0]["query"], "What changed?")
                 migrated = _compact_export_row({**row, "归类模式": "old"})
                 self.assertNotIn("归类模式", migrated)
                 self.assertEqual(migrated["象限"], expected)
@@ -310,10 +310,12 @@ class CategoryPolicyTests(unittest.TestCase):
             if name.startswith("quadrant_"):
                 generated_regions.append(values["region"])
             anchor = values.get("sub_category") or "extra"
-            words = [f"{anchor}-word-{i}" for i in range(3)]
+            words = ([f"{anchor}词{i}" for i in range(3)] if name.startswith("quadrant_") else ["extra-new"])
+            if name in {"topic_word_generate_llm_cfg.json", "hot_theme_word_generate_llm_cfg.json"}:
+                return json.dumps({"word": words[0], "short": words[0], "subject": anchor, "link_type": "主线"})
             return json.dumps({"recommended_words": words,
-                               "ai_queries": [{"word": w, "query": f"What changed for {anchor}?"} for w in words],
-                               "display_variants": [{"word": w, "display_6": w[:6], "display_9": w[:9]} for w in words]})
+                               "ai_queries": [{"word": w, "query": f"What changed for {anchor}?", "query_summary": w + "验证要点"} for w in words],
+                               **({"short_words": [{"word": w, "short": w, "subject": anchor} for w in words]} if name.startswith("quadrant_") else {"best_word_short": words[0], "best_word_subject": anchor})})
 
         article = state(score=score)
         model_result = {
@@ -359,13 +361,15 @@ class CategoryPolicyTests(unittest.TestCase):
         self.assertEqual(category["quadrant"], "双归类：象限A·test；象限B·test")
         candidates = category["generation_results"]
         self.assertEqual([c["leaf_id"] for c in candidates], [1, 2])
+        self.assertEqual(sum(len(c["recommended_words"]) for c in candidates), 3)
+        self.assertEqual([len(c["recommended_words"]) for c in candidates], [2, 1])
         self.assertEqual(generated_regions, ["A", "B"])
         self.assertNotEqual(candidates[0]["recommended_words"], candidates[1]["recommended_words"])
         for field in ("category", "sub_category", "word_source", "recommended_words", "best_word", "classification_candidates"):
             self.assertNotIn(field, category)
         for candidate in candidates:
-            self.assertEqual([item["word"] for item in candidate["ai_queries"]], candidate["recommended_words"])
-            self.assertTrue(all(item["query"] for item in candidate["ai_queries"]))
+            self.assertTrue(all(set(item) == {"word", "short", "query", "query_summary"} for item in candidate["recommended_words"]))
+            self.assertTrue(all(item["query"] and item["query_summary"] for item in candidate["recommended_words"]))
             for field in ("is_primary", "best_word", "region", "quadrant"):
                 self.assertNotIn(field, candidate)
         for result in [output, category, *candidates]:
@@ -377,8 +381,9 @@ class CategoryPolicyTests(unittest.TestCase):
             for result in (final[direction],):
                 self.assertNotIn("ranking_reasons", result)
                 self.assertNotIn("best_word_reason", result)
-                self.assertEqual(result["recommended_words"], [f"extra-word-{i}" for i in range(3)])
-                self.assertEqual(result["best_word"], result["recommended_words"][0])
+                self.assertEqual(result["word"], "extra-new")
+                self.assertEqual(result["short"], "extra-new")
+                self.assertNotIn("best_word", result)
         row = _summary_row({"资讯标题": "article"}, {"final_summary": final}, 1)
         self.assertEqual(row["分类来源"], "实际分类器分类")
         self.assertEqual(len(json.loads(row["分类生词结果"])), 2)
